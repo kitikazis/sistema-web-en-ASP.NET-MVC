@@ -17,7 +17,7 @@ namespace CapaPresentacionPancho.Controllers
         {
             return View();
         }
-
+        //listar usuarios
         [HttpGet]
         public JsonResult ListarUsuarios()
         {
@@ -40,6 +40,28 @@ namespace CapaPresentacionPancho.Controllers
             }
 
             return Json(new { resultado = resultado, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
+       
+        
         }
+
+        //Eliminar Usuario
+        [HttpPost]
+        public JsonResult EliminarUsuario(int id)
+        {
+            //punto depuracion 52
+            bool respuesta = false;
+            string mensaje = string.Empty;
+
+            respuesta = new CN_Usuarios().Eliminar(id, out mensaje);
+
+
+            return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
+
+
+
+        }
+
+
+
     }
 }

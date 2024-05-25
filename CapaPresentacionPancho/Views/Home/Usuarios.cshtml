@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal INCIO-->
 <div class="modal fade" id="FormModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -77,7 +77,7 @@
                 <div class="row mt-2">
                     <div class="col-12">
                         <div id="mensajeError" class="alert alert-danger" role="alert">       cambios dankger</div>
-                 
+
                     </div>
 
                 </div>
@@ -92,7 +92,7 @@
         </div>
     </div>
 </div>
-
+<!-- Modal FIN -->
 @section scripts {
 
     <script>
@@ -103,6 +103,7 @@
             tabladata = $("#tabla").DataTable({
                 responsive: true,
                 ordering: false,
+                //ajax
                 "ajax": {
                     url: '@Url.Action("ListarUsuarios", "Home")',
                     type: "GET",
@@ -120,7 +121,7 @@
                     },
                     {
                         "defaultContent": ' <button type="button" class="btn btn-primary btn-sm btn-editar"> <i class="fas fa-pen"></i></button>' +
-                            ' <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>',
+                            ' <button type="button" class="btn btn-danger btn-sm ms-2 btn-eliminar"><i class="fas fa-trash"></i></button>',
                         "orderable": false,
                         "searchable": false,
                         "width": "90px"
@@ -149,12 +150,60 @@
             }
             $("#FormModal").modal("show");
         }
-
+        //Modal Editar
         $('#tabla tbody').on("click", '.btn-editar', function () {
-            var filaSeleccionada = $(this).closest("tr");
+            filaSeleccionada = $(this).closest("tr");
             var data = tabladata.row(filaSeleccionada).data();
+            //carga btn editar
+            console.log(data)
             abrirModal(data)
         })
+
+        //Modal Borrar
+        $('#tabla tbody').on("click", '.btn-eliminar', function () {
+            var usuarioSelecionado = $(this).closest("tr");
+            var data = tabladata.row(usuarioSelecionado).data();
+            //carga btn eliminar
+            swal({
+                //configuraciones de alertas btn eliminar
+                title: "¿Estas Seguro?",
+                text: "¿Desea eliminar el usuario?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-primary",
+                confirmButtonText: "Si",
+                cancelButtonText: "No",
+                closeOnConfirm: true
+            },
+
+            //POST
+                function () {
+                    jQuery.ajax({
+                        url: '@Url.Action("EliminarUsuario","Home")',
+                        type: "POST",
+                        data: JSON.stringify({ id: data.IDUsuario }),
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+
+                   //         debugger;
+                            if (data.resultado) {
+                                tabladata.row(usuarioSelecionado).remove().draw();
+                            } else {
+     swal("No se puede eliminar pe mano", data.mensaje, "error pe cause")
+                            }
+                        },
+                        error: function (error) {
+                            console.log(error)
+                        }
+});
+              });
+
+            console.log(data);
+})
+
+
+
         function Guardar() {
             var Usuario = {
                 IDUsuario: $("#txtid").val(),
@@ -204,7 +253,7 @@
                 error: function (error) {
                     $(".modal-body").LoadingOverlay("hide");
                     $("#mensajeError").text("Error Ajax");
-                    $("$mensajeError").show();
+                    $("#mensajeError").show();
                 },
                 beforeSend: function () {
                     $(".modal-body").LoadingOverlay("show"), {
@@ -214,8 +263,10 @@
                         size: 14
                     }
                 }
-                ///
 
+                //liberia alertas https://lipis.github.io/bootstrap-sweetalert/
+                ///Funcion de Borrar
+                //Usuario installar en el Nuget -> sweetalret.boostsrap
 
 
 

@@ -17,6 +17,8 @@ namespace CapaPresentacionPancho
             "~/Scripts/DataTables/dataTables.responsive.js",
             //loadign
           "~/Scripts/loadingoverlay/loadingoverlay.min.js",
+          //alertas borrar 
+          "~/Scripts/sweetalert.min.js",
             "~/Scripts/scripts.js"));
 
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
@@ -25,6 +27,8 @@ namespace CapaPresentacionPancho
             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/Content/site.css",
                         "~/Content/DataTables/css/jquery.dataTables.css",
+                        //alerta borrar
+                        "~/Content/sweetalert.css",
                         "~/Content/DataTables/css/responsive.dataTables.css"));
         }
     }
