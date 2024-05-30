@@ -39,7 +39,7 @@ namespace CapaPresentacionPancho.Controllers
             oLista = new CN_Categoria().Listar();
             return Json(new { data = oLista }, JsonRequestBehavior.AllowGet);
         }
-
+        //xd
         //guardar categoria
         [HttpPost]
         public JsonResult GuardarCategoria(Categoria objeto)
