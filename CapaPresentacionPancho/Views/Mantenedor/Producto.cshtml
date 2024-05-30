@@ -295,98 +295,76 @@
             console.log(data);
 })
 
-     
+
     //guardar
-        function Guardar() {
-            
-            var ImagenSeleccionada = $("#fileProducto")[0].files[0];
+ function Guardar() {
+    var ImagenSeleccionada = $("#fileProducto")[0].files[0];
 
-            var Producto = {
-                IDProducto: $("#txtid").val(),
-                Nombre: $("#txtnombre").val(),
-                Descripcion: $("#txtdescripcion").val(),
-                oMarca: {
-                    IDMarca: $("#cbomarca option:selected").val(),
-                    Descripcion: $("c#bomarca option:selected").text()
-                },
-                oCategoria: {
-                    IDCategoria: $("#cbocategoria option:selected").val(),
-                    Descripcion: $("#cbocategoria option:selected").text(),
-                },
-                PrecioTexto: $("txtprecio").val(),
-                Precio: $("#txtprecio").val(),
-                Stock: $("#txtstock").val(),
-                Activo: $("#cboactivo").val() == 1 ? true : false,
- 
-            }
-            var request = new FormData();
-            request.append("objeto", JSON.stringify(Producto))
-            request.append("arhcivoImagen",ImagenSeleccionada)
+    var Producto = {
+        IDProducto: $("#txtid").val(),
+        Nombre: $("#txtnombre").val(),
+        Descripcion: $("#txtdescripcion").val(),
+        oMarca: {
+            IDMarca: $("#cbomarca option:selected").val(),
+            Descripcion: $("#cbomarca option:selected").text()
+        },
+        oCategoria: {
+            IDCategoria: $("#cbocategoria option:selected").val(),
+            Descripcion: $("#cbocategoria option:selected").text()
+        },
+        PrecioTexto: $("#txtprecio").val(), // Fix typo
+        Precio: $("#txtprecio").val(),
+        Stock: $("#txtstock").val(),
+        Activo: $("#cboactivo").val() == 1 ? true : false,
+    };
 
-            //jQuery ajax
-            jQuery.ajax({
-                url: '@Url.Action("Guardarproducto", "Mantenedor")',
-                type: "POST",
-                data: request,
-              
-                contentType: false,
-                success: function (data) {
-                    $(".modal-body").LoadingOverlay("hide");
+    var request = new FormData();
+    request.append("objeto", JSON.stringify(Producto));
+    request.append("archivoImagen", ImagenSeleccionada);
 
-                    //Producto nuevo
-                    if (Producto.IDProducto == 0) {
+    jQuery.ajax({
+        url: '@Url.Action("Guardarproducto", "Mantenedor")',
+        type: "POST",
+        data: request,
+        processData: false, // Add this line
+        contentType: false,
+        success: function (data) {
+            $(".modal-body").LoadingOverlay("hide");
 
-                        if (data.IDGenerado != 0) {
-
-                            Producto.IDProducto = data.IDGenerado;
-                            tabladata.row.add(Producto).draw(false);
-                            $("#FormModal").modal("hide")
-                        } else {
-                            $("#mensajeError").text(data.mensaje);
-                            $("#mensajeError").show();
-                        }
-                    }
-
-                    //Producto Editar
-                    else {
-                        if (data.operacionExitosa) {
-                            tabladata.row(filaSeleccionada).data(Producto).draw(false);
-                            filaSeleccionada = null;
-                            $("#FormModal").modal("hide");
-
-                        } else {
-                            $("#mensajeError").text(data.mensaje);
-                            $("#mensajeError").show();
-                        }
-                    }
-
-                },
-                //error function
-                error: function (error) {
-                    $(".modal-body").LoadingOverlay("hide");
-                    $("#mensajeError").text("Error Ajaxx");
+            if (Producto.IDProducto == 0) {
+                if (data.IDGenerado != 0) {
+                    Producto.IDProducto = data.IDGenerado;
+                    tabladata.row.add(Producto).draw(false);
+                    $("#FormModal").modal("hide");
+                } else {
+                    $("#mensajeError").text(data.mensaje);
                     $("#mensajeError").show();
-                },
-                beforeSend: function () {
-                    $(".modal-body").LoadingOverlay("show"), {
-                        imageRisezeFactor: 2,
-                        text: "Cargando.....",
-                        size: 14
-                    }
                 }
-
-                //liberia alertas https://lipis.github.io/bootstrap-sweetalert/
-                ///Funcion de Borrar
-                //Usuario installar en el Nuget -> sweetalret.boostsrap
-
-
-
-
-
-
-
-
-                });
+            } else {
+                if (data.operacionExitosa) {
+                    tabladata.row(filaSeleccionada).data(Producto).draw(false);
+                    filaSeleccionada = null;
+                    $("#FormModal").modal("hide");
+                } else {
+                    $("#mensajeError").text(data.mensaje);
+                    $("#mensajeError").show();
+                }
+            }
+        },
+        error: function (error) {
+            $(".modal-body").LoadingOverlay("hide");
+            $("#mensajeError").text("Error Ajax");
+            $("#mensajeError").show();
+        },
+        beforeSend: function () {
+            $(".modal-body").LoadingOverlay("show", {
+                imageResizeFactor: 2,
+                text: "Cargando.....",
+                size: 14
+            });
         }
+    });
+}
+
     </script>
 }

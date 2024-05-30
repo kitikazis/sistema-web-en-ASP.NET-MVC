@@ -193,8 +193,8 @@ namespace CapaPresentacionPancho.Controllers
                 if (archivoImagen != null)
                 {
                     string ruta_guardar = ConfigurationManager.AppSettings["ServidorFotos"];
-                    string extesion = Path.GetExtension(archivoImagen.FileName);
-                    string nombre_imagen = string.Concat(oProducto.IDProducto.ToString(), extesion);
+                    string extension = Path.GetExtension(archivoImagen.FileName);
+                    string nombre_imagen = string.Concat(oProducto.IDProducto.ToString(), extension);
                     try
                     {
                         archivoImagen.SaveAs(Path.Combine(ruta_guardar, nombre_imagen));
