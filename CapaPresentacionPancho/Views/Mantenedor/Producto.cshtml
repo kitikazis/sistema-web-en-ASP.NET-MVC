@@ -4,7 +4,7 @@
 }
 
 <ol class="breadcrumb mb-4 mt-4">
-    <li class="breadcrumb-item"><a href="index.html">Mantemiento</a></li>
+    <li class="breadcrumb-item"><a href="index.html">Mantenimiento</a></li>
     <li class="breadcrumb-item active">Producto</li>
 </ol>
 
@@ -15,8 +15,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-12">
-
-                <button type="button" class="btn btn-success" onclick="abrirModal(null)">Crear nuevo </button>
+                <button type="button" class="btn btn-success" onclick="abrirModal(null)">Crear nuevo</button>
             </div>
         </div>
         <hr />
@@ -24,9 +23,9 @@
             <thead>
                 <tr>
                     <th>Nombre</th>
-                    <th>Descripcion</th>
+                    <th>Descripción</th>
                     <th>Marca</th>
-                    <th>Categoria</th>
+                    <th>Categoría</th>
                     <th>Precio</th>
                     <th>Stock</th>
                     <th>Activo</th>
@@ -39,117 +38,82 @@
     </div>
 </div>
 
-<!-- Modal INCIO-->
+<!-- Modal INICIO -->
 <div class="modal fade" id="FormModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title" id="exampleModalLabel">Prodcuto</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Producto</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body ">
-                <!-- ID-->
-                <input id="txtid" type="text" value="0" />
+            <div class="modal-body">
+                <!-- ID -->
+                <input id="txtid" type="hidden" value="0" />
 
                 <form id="contenedor" class="row">
                     <div class="col-sm-3">
                         <div class="mb-2">
-                            <img id="img_prodcuto" height="200" width="200" class="border rounded mx-auto d-block img-fluid" />
-
+                            <img id="img_producto" height="200" width="200" class="border rounded mx-auto d-block img-fluid" />
                         </div>
                         <div class="mb-2">
-                            <input class="form-control" type="file" id="fileProducto" acceptt="image/png, image/jpg, image/jpeg" onchange="" />
-
+                            <input class="form-control" type="file" id="fileProducto" accept="image/png, image/jpg, image/jpeg" onchange="mostrarImagen(this)" />
                         </div>
                     </div>
 
-
-                    <!-- Nombre-->
+                    <!-- Nombre -->
                     <div class="col-sm-3">
                         <div class="mb-3">
                             <label class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="txtnombre" name="nombre" />
-                            <!-- Descripcion-->
                         </div>
+                        <!-- Descripción -->
                         <div class="mb-3">
-                            <label class="form-label">Descripcion</label>
-                            <textarea auto type="text" class="form-control" id="txtdescripcion" style="height:125px;resize:none" name="descripcion"></textarea>
+                            <label class="form-label">Descripción</label>
+                            <textarea class="form-control" id="txtdescripcion" style="height:125px;resize:none" name="descripcion"></textarea>
                         </div>
                     </div>
 
-                    <!-- Marca-->
-
+                    <!-- Marca -->
                     <div class="col-sm-3">
                         <div class="mb-3">
                             <label class="form-label">Marca</label>
-                            <select id="cbomarca" class="form-select">  </select>
+                            <select id="cbomarca" class="form-select"></select>
                         </div>
-                        <!-- Categoria-->
+                        <!-- Categoría -->
                         <div class="mb-3">
-                            <label class="form-label">Categoria</label>
+                            <label class="form-label">Categoría</label>
                             <select id="cbocategoria" class="form-select"></select>
-
                         </div>
                     </div>
 
-                    <!-- Precio-->
-                    <div class="mb-3">
-                        <label class="form-label">Precio</label>
-                        <input type="text" class="form-control" id="txtprecio" name="precio" autocomplete="off" />
-                        <!-- Stock-->
+                    <!-- Precio -->
+                    <div class="col-sm-3">
+                        <div class="mb-3">
+                            <label class="form-label">Precio</label>
+                            <input type="text" class="form-control" id="txtprecio" name="precio" autocomplete="off" />
+                        </div>
+                        <!-- Stock -->
                         <div class="mb-3">
                             <label class="form-label">Stock</label>
-                           <input type="number" class="form-control" id="txtstock" name="stock" />
-
+                            <input type="number" class="form-control" id="txtstock" name="stock" />
+                        </div>
+                        <!-- Activo -->
+                        <div class="mb-3">
+                            <label class="form-label">Activo</label>
+                            <select id="cboactivo" class="form-select">
+                                <option value="1">Sí</option>
+                                <option value="0">No</option>
+                            </select>
                         </div>
                     </div>
+                </form>
 
-                    <!-- Activo-->
-                    <div class="mb-3">
-                        <label class="form-label">Activo</label>
-                        <select id="cboactivo" class="form-select">
-                            <option value="1">Si</option>
-                            <option value="2">No</option>
-
-
-
-
-                        </select>
-                     
-                    </div>
-            </div>
-        </div>
-                    </div>
-
-
-            </form>
-
-
-                <div class="row g-2">
-                    <div class="col-sm-6">
-                        <label for="txtdescripcion" class="form-label">Descripcion</label>
-                        <input type="text" class="form-control" id="txtdescripcion" autocomplete="off">
-                    </div>
-                    <div class="col-sm-6">
-                        <label for="cboactivo" class="form-label">Activo</label>
-                        <select id="cboactivo" class="form-select">
-                            <option selected></option>
-                            <option value="1">Si</option>
-                            <option value="0">No</option>
-                        </select>
-                    </div>
-                    <!-- ALETRAS-->
-                </div>
+                <!-- Mensaje de Error -->
                 <div class="row mt-2">
                     <div class="col-12">
-                        <div id="mensajeError" class="alert alert-danger" role="alert">       cambios dankger</div>
-
+                        <div id="mensajeError" class="alert alert-danger" role="alert" style="display: none;"></div>
                     </div>
-
                 </div>
-
-
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -159,17 +123,27 @@
     </div>
 </div>
 <!-- Modal FIN -->
+
 @section scripts {
 
     <script>
 
         var tabladata;
         var filaSeleccionada;
+        function mostrarImagen(input) {
+            if (input.files) {
 
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#img_producto").attr("src", e.target.result).width(200).height(200)
+                }
+                // 0 = un solo archivo
+                reader.readAsDataURL(input.files[0])
+        }
+}
             tabladata = $("#tabla").DataTable({
                 responsive: true,
                 ordering: false,
-                //ajax
                 "ajax": {
                     //Marca - conentedor
                     url: '@Url.Action("ListarMarca", "Mantenedor")',
@@ -198,20 +172,79 @@
                 }
             });
 
+            // ListarMarca
+        jQuery.ajax({
+        url: '@Url.Action("ListarMarca", "Mantenedor")',
+        type: "GET",
+        data: null,
+        dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                $("<option>").attr({ "value": "0", "disable": "true" }).text("Seleccionar").appendTo("#cbomarca");
+
+            $.each(data.data, function (index, item) {
+
+                $("<option>").attr({ "value": item.IDMarca }).text(item.Descripcion).appendTo("#cbomarca");
+            });
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+        // Listar Categorias
+        jQuery.ajax({
+    url: '@Url.Action("ListarCategorias", "Mantenedor")',
+    type: "GET",
+    data: null,
+    dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            $("<option>").attr({ "value": "0", "disable": "true" }).text("Seleccionar").appendTo("#cbocategoria");
+
+        $.each(data.data, function (index, item) {
+
+            $("<option>").attr({ "value": item.IDCategoria }).text(item.Descripcion).appendTo("#cbocategoria");
+        });
+    },
+    error: function (error) {
+        console.log(error);
+    }
+});
+
+
+
+        //Abrir modal
         function abrirModal(json) {
             $("#txtid").val(0);
- $("#txtdescripcion").val(1);
-  $("#mensajeError").hide();
- if (json != null) {
-                $("#txtid").val(json.IDMarca);
+            $("#img_producto").removeAttr("src");
+            $("#fileProducto").val("");
+            $("#txtnombre").val("");
+            $("#txtdescripcion").val("");
+            $("#cbomarca").val($("#cbomarca option:first").val());
+            $("#cbocategoria").val($("#cbocategoria option:first").val());
+            $("#txtprecio").val("");
+            $("#txtstock").val("");
+            $("#cboactivo").val(1);
 
+            $("#mensajeError").hide();
+
+            if (json != null) {
+
+                $("#txtid").val(json.IDProducto);
+                $("#txtnombre").val(json.Nombre);
                 $("#txtdescripcion").val(json.Descripcion);
+                $("#cbomarca").val(json.oMarca.IDMarca);
+                $("#cbocategoria").val(json.oCategoria.IDCategoria);
+                $("#txtprecio").val(json.Precio);
+                $("#txtstock").val(json.Stock);
                 $("#cboactivo").val(json.Activo == true ? 1 : 0);
             }
             $("#FormModal").modal("show");
         }
         //Modal Editar Marca
         $('#tabla tbody').on("click", '.btn-editar', function () {
+
             filaSeleccionada = $(this).closest("tr");
             var data = tabladata.row(filaSeleccionada).data();
             //carga btn editar
@@ -227,7 +260,7 @@
             swal({
                 //configuraciones de alertas btn eliminar
                 title: "¿Estas Seguro?",
-                text: "¿Desea eliminar el Marca?",
+                text: "¿Desea eliminar el Prodcuto?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonClass: "btn-primary",
@@ -262,29 +295,51 @@
             console.log(data);
 })
 
-
-
+     
+    //guardar
         function Guardar() {
-            var Marca = {
-                IDMarca: $("#txtid").val(),
+            
+            var ImagenSeleccionada = $("#fileProducto")[0].files[0];
+
+            var Producto = {
+                IDProducto: $("#txtid").val(),
+                Nombre: $("#txtnombre").val(),
                 Descripcion: $("#txtdescripcion").val(),
+                oMarca: {
+                    IDMarca: $("#cbomarca option:selected").val(),
+                    Descripcion: $("c#bomarca option:selected").text()
+                },
+                oCategoria: {
+                    IDCategoria: $("#cbocategoria option:selected").val(),
+                    Descripcion: $("#cbocategoria option:selected").text(),
+                },
+                PrecioTexto: $("txtprecio").val(),
+                Precio: $("#txtprecio").val(),
+                Stock: $("#txtstock").val(),
                 Activo: $("#cboactivo").val() == 1 ? true : false,
+ 
             }
+            var request = new FormData();
+            request.append("objeto", JSON.stringify(Producto))
+            request.append("arhcivoImagen",ImagenSeleccionada)
+
             //jQuery ajax
             jQuery.ajax({
-                url: '@Url.Action("GuardaMarca", "Mantenedor")',
+                url: '@Url.Action("Guardarproducto", "Mantenedor")',
                 type: "POST",
-                data: JSON.stringify({ objeto: Marca }),
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
+                data: request,
+              
+                contentType: false,
                 success: function (data) {
                     $(".modal-body").LoadingOverlay("hide");
 
-                    //Marca nuevo
-                    if (Marca.IDMarca == 0) {
-                        if (data.IDMarca != 0) {
-                            Marca.IDMarca = data.resultado
-                            tabladata.row.add(Marca).draw(false);
+                    //Producto nuevo
+                    if (Producto.IDProducto == 0) {
+
+                        if (data.IDGenerado != 0) {
+
+                            Producto.IDProducto = data.IDGenerado;
+                            tabladata.row.add(Producto).draw(false);
                             $("#FormModal").modal("hide")
                         } else {
                             $("#mensajeError").text(data.mensaje);
@@ -292,11 +347,10 @@
                         }
                     }
 
-                    //Marca Editar
-
+                    //Producto Editar
                     else {
-                        if (data.resultado) {
-                            tabladata.row(filaSeleccionada).data(Marca).draw(false);
+                        if (data.operacionExitosa) {
+                            tabladata.row(filaSeleccionada).data(Producto).draw(false);
                             filaSeleccionada = null;
                             $("#FormModal").modal("hide");
 
@@ -310,12 +364,11 @@
                 //error function
                 error: function (error) {
                     $(".modal-body").LoadingOverlay("hide");
-                    $("#mensajeError").text("Error Ajax");
+                    $("#mensajeError").text("Error Ajaxx");
                     $("#mensajeError").show();
                 },
                 beforeSend: function () {
                     $(".modal-body").LoadingOverlay("show"), {
-
                         imageRisezeFactor: 2,
                         text: "Cargando.....",
                         size: 14
