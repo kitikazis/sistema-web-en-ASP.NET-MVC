@@ -295,7 +295,7 @@
             console.log(data);
 })
 
-
+     
     //guardar
  function Guardar() {
     var ImagenSeleccionada = $("#fileProducto")[0].files[0];
@@ -312,7 +312,7 @@
             IDCategoria: $("#cbocategoria option:selected").val(),
             Descripcion: $("#cbocategoria option:selected").text()
         },
-        PrecioTexto: $("#txtprecio").val(), // Fix typo
+        PrecioTexto: $("#txtprecio").val(), 
         Precio: $("#txtprecio").val(),
         Stock: $("#txtstock").val(),
         Activo: $("#cboactivo").val() == 1 ? true : false,
@@ -326,7 +326,7 @@
         url: '@Url.Action("Guardarproducto", "Mantenedor")',
         type: "POST",
         data: request,
-        processData: false, // Add this line
+        processData: false, 
         contentType: false,
         success: function (data) {
             $(".modal-body").LoadingOverlay("hide");
