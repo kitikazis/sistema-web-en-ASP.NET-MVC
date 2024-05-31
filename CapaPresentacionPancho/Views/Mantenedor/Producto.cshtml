@@ -111,7 +111,7 @@
                 <!-- Mensaje de Error -->
                 <div class="row mt-2">
                     <div class="col-12">
-                        <div id="mensajeError" class="alert alert-danger" role="alert" style="display: none;"></div>
+                        <div id="mensajeError" class="alert alert-danger" role="alert"></div>
                     </div>
                 </div>
             </div>
@@ -187,6 +187,54 @@
                     "url": "https://cdn.datatables.net/plug-ins/2.0.7/i18n/es-MX.json"
                 }
             });
+
+        //Validacion de registrar productos y fortamlo del precio
+
+        jQuery.validator.addMethod("preciodecimal", function (value, element) {
+            //logica expresiones regulares
+            return this.optional(element) || /^\d{0,4}(\.\d{0,2})?$/i.test(value);
+        }, "El formato correcto del precio es ##.##");
+
+
+
+        //formualrio para validacion
+
+        $("#contenedor").validate({
+            rules: {
+                nombre: {
+                    required: true
+                },
+                descripcion: {
+                    required: true
+                },
+                precio: {
+                    required: true,
+                    preciodecimal: true
+                },
+                stock: {
+                    required: true,
+                    number: true
+                }
+            },
+            messages: {
+                nombre: "- El campo nombre es obligatorio",
+                descripcion: "- El campo descripcion es obligatorio",
+                precio: { required: "- El campo precio es obligario", preciodecimal: "- El formato correcto del precio es ##.##" },
+                stock: { required: "- El campo stock es obligario", preciodecimal: "- Debe ingresar solo numeros en el stock" }
+            },
+            errorElement: "div",
+            errorLabelContainer: ".alert-danger"
+        })
+
+        //formualrio para validacion ------- FIN
+
+
+
+
+
+
+
+
 
             // ListarMarca
         jQuery.ajax({
@@ -312,31 +360,38 @@
 })
    
      
-    //gua
- function Guardar() {
-    var ImagenSeleccionada = $("#fileProducto")[0].files[0];
+        //guaardar
 
-    var Producto = {
-        IDProducto: $("#txtid").val(),
-        Nombre: $("#txtnombre").val(),
-        Descripcion: $("#txtdescripcion").val(),
-        oMarca: {
-            IDMarca: $("#cbomarca option:selected").val(),
-            Descripcion: $("#cbomarca option:selected").text()
-        },
-        oCategoria: {
-            IDCategoria: $("#cbocategoria option:selected").val(),
-            Descripcion: $("#cbocategoria option:selected").text()
-        },
-        PrecioTexto: $("#txtprecio").val(), 
-        Precio: $("#txtprecio").val(),
-        Stock: $("#txtstock").val(),
-        Activo: $("#cboactivo").val() == 1 ? true : false,
-    };
 
-    var request = new FormData();
-    request.append("objeto", JSON.stringify(Producto));
-    request.append("archivoImagen", ImagenSeleccionada);
+        function Guardar() {
+
+            if (!$("#contenedor").valid()) {
+                return;
+            }
+
+
+
+            var ImagenSeleccionada = $("#fileProducto")[0].files[0];
+            var Producto = {
+                IDProducto: $("#txtid").val(),
+                Nombre: $("#txtnombre").val(),
+                Descripcion: $("#txtdescripcion").val(),
+                oMarca: {
+                    IDMarca: $("#cbomarca option:selected").val(),
+                    Descripcion: $("#cbomarca option:selected").text()
+                },
+                oCategoria: {
+                    IDCategoria: $("#cbocategoria option:selected").val(),
+                    Descripcion: $("#cbocategoria option:selected").text()
+                },
+                PrecioTexto: $("#txtprecio").val(),
+                Precio: $("#txtprecio").val(),
+                Stock: $("#txtstock").val(),
+                Activo: $("#cboactivo").val() == 1 ? true : false,
+            };
+            var request = new FormData();
+            request.append("objeto", JSON.stringify(Producto));
+            request.append("archivoImagen", ImagenSeleccionada);
 
     jQuery.ajax({
         url: '@Url.Action("GuardarProducto", "Mantenedor")',

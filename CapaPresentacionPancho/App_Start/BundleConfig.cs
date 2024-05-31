@@ -18,7 +18,12 @@ namespace CapaPresentacionPancho
             //loadign
           "~/Scripts/loadingoverlay/loadingoverlay.min.js",
           //alertas borrar 
-          "~/Scripts/sweetalert.min.js",
+
+          //validacacion
+          "~/Scripts/jquery.validate.js",
+
+              "~/Scripts/sweetalert.min.js",
+
             "~/Scripts/scripts.js"));
 
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
