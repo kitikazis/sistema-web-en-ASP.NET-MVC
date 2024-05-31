@@ -146,7 +146,7 @@ namespace CapaPresentacionPancho.Controllers
 
         //Guardar Producto
         [HttpPost]
-        public JsonResult Guardarproducto(string objeto, HttpPostedFile archivoImagen)
+        public JsonResult GuardarProducto(string objeto, HttpPostedFileBase archivoImagen)
         {
 
             string mensaje = string.Empty;
@@ -224,7 +224,7 @@ namespace CapaPresentacionPancho.Controllers
 
 
         [HttpPost]
-        public JsonResult ImagenProdcuto(int id)
+        public JsonResult ImagenProducto(int id)
         {
             bool conversion;
             Producto oProducto = new CN_Producto().Listar().Where(p => p.IDProducto == id).FirstOrDefault();

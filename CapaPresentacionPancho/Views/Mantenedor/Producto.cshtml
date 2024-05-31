@@ -146,22 +146,38 @@
                 ordering: false,
                 "ajax": {
                     //Marca - conentedor
-                    url: '@Url.Action("ListarMarca", "Mantenedor")',
+                    url: '@Url.Action("ListarProducto", "Mantenedor")',
                     type: "GET",
                     dataType: "json"
                 },
                 "columns": [
 
+                    { "data": "Nombre" },
                     { "data": "Descripcion" },
                     {
-                        "data": "Activo",
-                        "render": function (valor) {
-                            return valor ? '<span class="badge bg-success">SI</span>' : '<span class="badge bg-danger">No</span>';
+                        "data": "oMarca", "render": function (data) {
+                        return data.Descripcion
+                        }
+                    },
+                    {
+                        "data": "oCategoria", "render": function (data) {
+                            return data.Descripcion
+                        }
+                    },
+                    { "data": "Precio" },
+                    { "data": "Stock" },
+                    {
+                        "data": "Activo", "render": function (valor) {
+                            if (valor) {
+                                return '<span class="badge bg-success">Si</span>'
+                            } else {
+                                return '<span class="badge bg-danger">No</span>'
+                            }
                         }
                     },
                     {
                         "defaultContent": ' <button type="button" class="btn btn-primary btn-sm btn-editar"> <i class="fas fa-pen"></i></button>' +
-                            ' <button type="button" class="btn btn-danger btn-sm ms-2 btn-eliminar"><i class="fas fa-trash"></i></button>',
+                        ' <button type="button" class="btn btn-danger btn-sm ms-2 btn-eliminar"><i class="fas fa-trash"></i></button>',
                         "orderable": false,
                         "searchable": false,
                         "width": "90px"
@@ -294,9 +310,9 @@
 
             console.log(data);
 })
-
+   
      
-    //guardar
+    //gua
  function Guardar() {
     var ImagenSeleccionada = $("#fileProducto")[0].files[0];
 
@@ -323,13 +339,14 @@
     request.append("archivoImagen", ImagenSeleccionada);
 
     jQuery.ajax({
-        url: '@Url.Action("Guardarproducto", "Mantenedor")',
+        url: '@Url.Action("GuardarProducto", "Mantenedor")',
         type: "POST",
         data: request,
         processData: false, 
         contentType: false,
         success: function (data) {
             $(".modal-body").LoadingOverlay("hide");
+
 
             if (Producto.IDProducto == 0) {
                 if (data.IDGenerado != 0) {

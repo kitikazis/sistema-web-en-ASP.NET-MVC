@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using System.Globalization;
 
 namespace CapaDatos
 {
@@ -23,10 +24,23 @@ namespace CapaDatos
             {
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
                 {
-                    SqlCommand cmd = new SqlCommand("ObtenerProductos", oconexion);
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    // No usa proc --> listar
+                    StringBuilder sb = new StringBuilder();
+
+                    sb.AppendLine("select p.IDProducto,p.Nombre,p.Descripcion,");
+                    sb.AppendLine("m.IDMarca,m.Descripcion[DesMarca],");
+                    sb.AppendLine("c.IDCategoria,c.Descripcion[DesCategoria],");
+                    sb.AppendLine("p.Precio,p.Stock,p.RutaImagen,p.NombreImagen,p.Activo");
+                    sb.AppendLine("from PRODUCTO p");
+                    sb.AppendLine("inner join MARCA m on m.IDMarca = p.IDMarca");
+                    sb.AppendLine("inner join CATEGORIA c on c.IDCategoria = p.IDCategoria");
+
+
+                    SqlCommand cmd = new SqlCommand(sb.ToString(), oconexion);
+                    cmd.CommandType = CommandType.Text;
 
                     oconexion.Open();
+
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
@@ -36,38 +50,27 @@ namespace CapaDatos
                                 IDProducto = Convert.ToInt32(dr["IDProducto"]),
                                 Nombre = dr["Nombre"].ToString(),
                                 Descripcion = dr["Descripcion"].ToString(),
-                                oMarca = new Marca()
-                                {
-                                    IDMarca = Convert.ToInt32(dr["IDMarca"]),
-                                    Descripcion = dr["DesMarca"].ToString()
-                                },
-                                oCategoria = new Categoria()
-                                {
-                                    IDCategoria = Convert.ToInt32(dr["IDCategoria"]),
-                                    Descripcion = dr["DesCategoria"].ToString()
-                                },
-                                Precio = Convert.ToDecimal(dr["Precio"]),
+                                oMarca = new Marca() { IDMarca = Convert.ToInt32(dr["IDMarca"]), Descripcion = dr["DesMarca"].ToString() },
+                                oCategoria = new Categoria() { IDCategoria = Convert.ToInt32(dr["IDCategoria"]), Descripcion = dr["DesCategoria"].ToString() },
+                                Precio = Convert.ToDecimal(dr["Precio"], new CultureInfo("es-PE")),
                                 Stock = Convert.ToInt32(dr["Stock"]),
                                 RutaImagen = dr["RutaImagen"].ToString(),
                                 NombreImagen = dr["NombreImagen"].ToString(),
                                 Activo = Convert.ToBoolean(dr["Activo"])
                             });
-
                         }
                     }
                 }
             }
-
-
             catch
             {
-              
                 lista = new List<Producto>();
-            }
 
-           
+            }
             return lista;
         }
+
+
 
         //registrar Producto
 
@@ -193,7 +196,7 @@ namespace CapaDatos
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
                 {
                     string query = "update producto set RutaImagen = @rutaimagen, NombreImagen = @nombreimagen where IDProdcuto = @IDProducto ";
-                    SqlCommand cmd = new SqlCommand("sp_RegistrarProducto", oconexion);
+                    SqlCommand cmd = new SqlCommand(query, oconexion);
                     cmd.Parameters.AddWithValue("@rutaimagen", obj.RutaImagen);
                     cmd.Parameters.AddWithValue("@nombreimagen", obj.NombreImagen);
                     cmd.Parameters.AddWithValue("@IDProcuto", obj.IDProducto);

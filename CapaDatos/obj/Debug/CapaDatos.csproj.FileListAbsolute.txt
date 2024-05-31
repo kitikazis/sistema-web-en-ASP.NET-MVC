@@ -7,3 +7,12 @@ C:\Users\luisk\source\repos\MVC\CapaDatos\obj\Debug\CapaDatos.csproj.CoreCompile
 C:\Users\luisk\source\repos\MVC\CapaDatos\obj\Debug\CapaDatos.csproj.Up2Date
 C:\Users\luisk\source\repos\MVC\CapaDatos\obj\Debug\CapaDatos.dll
 C:\Users\luisk\source\repos\MVC\CapaDatos\obj\Debug\CapaDatos.pdb
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaDatos\bin\Debug\CapaDatos.dll
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaDatos\bin\Debug\CapaDatos.pdb
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaDatos\bin\Debug\CapaEntidad.dll
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaDatos\bin\Debug\CapaEntidad.pdb
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaDatos\obj\Debug\CapaDatos.csproj.AssemblyReference.cache
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaDatos\obj\Debug\CapaDatos.csproj.CoreCompileInputs.cache
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaDatos\obj\Debug\CapaDatos.csproj.Up2Date
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaDatos\obj\Debug\CapaDatos.dll
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaDatos\obj\Debug\CapaDatos.pdb
