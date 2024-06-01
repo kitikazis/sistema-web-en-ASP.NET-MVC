@@ -303,6 +303,36 @@
                 $("#txtprecio").val(json.Precio);
                 $("#txtstock").val(json.Stock);
                 $("#cboactivo").val(json.Activo == true ? 1 : 0);
+
+
+                jQuery.ajax({
+                    url: '@Url.Action("ImagenProducto", "Mantenedor")',
+                    type: "POST",
+                     data: JSON.stringify({ id : json.IDProducto}),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                       $("#img_producto").LoadingOverlay("hide");
+
+                       if (data.conversion) {
+                          $("#img_producto").attr({ "src": "data:image/" + data.extension + ";base64," + data.textobase64 });
+                     }
+
+                     //    $("#img_producto").attr({ "src": data.ruta});
+
+                    },
+                    error: function (error) {
+                        $("#img_producto").LoadingOverlay("hide");
+
+                        $("#mensajeError").show();
+                        $("#mensajeError").text("Error al mostrar imagen");
+
+                    },
+                    beforeSend: function () {
+                        $("#img_producto").LoadingOverlay("show");
+                    },
+                });
+
             }
             $("#FormModal").modal("show");
         }
@@ -311,8 +341,6 @@
 
             filaSeleccionada = $(this).closest("tr");
             var data = tabladata.row(filaSeleccionada).data();
-            //carga btn editar
-
             abrirModal(data)
         })
 
@@ -358,8 +386,8 @@
 
             console.log(data);
 })
-   
-     
+
+
         //guaardar
 
 
@@ -397,7 +425,7 @@
         url: '@Url.Action("GuardarProducto", "Mantenedor")',
         type: "POST",
         data: request,
-        processData: false, 
+        processData: false,
         contentType: false,
         success: function (data) {
             $(".modal-body").LoadingOverlay("hide");
