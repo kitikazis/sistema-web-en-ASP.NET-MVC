@@ -13,18 +13,13 @@ namespace CapaPresentacionPancho
 
             bundles.Add(new Bundle("~/bundles/complementos").Include(
                               "~/Scripts/fontawesome/all.min.js",
-            "~/Scripts/DataTables/jquery.dataTables.js",
-            "~/Scripts/DataTables/dataTables.responsive.js",
-            //loadign
-          "~/Scripts/loadingoverlay/loadingoverlay.min.js",
-          //alertas borrar 
-
-          //validacacion
-          "~/Scripts/jquery.validate.js",
-
-              "~/Scripts/sweetalert.min.js",
-
-            "~/Scripts/scripts.js"));
+                              "~/Scripts/DataTables/jquery.dataTables.js",
+                              "~/Scripts/DataTables/dataTables.responsive.js",
+                              "~/Scripts/loadingoverlay/loadingoverlay.min.js",
+                              "~/Scripts/jquery.validate.js",
+                              "~/Scripts/sweetalert.min.js",
+                              "~/Scripts/jquery-ui.js",
+                              "~/Scripts/scripts.js"));
 
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
                         "~/Scripts/bootstrap.bundle.js"));
@@ -32,8 +27,8 @@ namespace CapaPresentacionPancho
             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/Content/site.css",
                         "~/Content/DataTables/css/jquery.dataTables.css",
-                        //alerta borrar
                         "~/Content/sweetalert.css",
+                        "~/Content/jquery-ui.css",
                         "~/Content/DataTables/css/responsive.dataTables.css"));
         }
     }

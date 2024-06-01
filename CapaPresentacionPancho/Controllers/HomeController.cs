@@ -40,8 +40,8 @@ namespace CapaPresentacionPancho.Controllers
             }
 
             return Json(new { resultado = resultado, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
-       
-        
+
+
         }
 
         //Eliminar Usuario
@@ -60,6 +60,35 @@ namespace CapaPresentacionPancho.Controllers
 
 
         }
+
+
+        //Vista Dasrboard - Contadores
+
+
+        [HttpGet]
+        public JsonResult VistaDashBoard()
+        {
+            DashBoard objeto = new CN_Reporte().VerDashBoard();
+
+            return Json(new { resultado = objeto }, JsonRequestBehavior.AllowGet);
+        }
+    
+
+        // Lista Reporte
+        [HttpGet]
+        public JsonResult ListaReporte(string fechainicio, string fechafin, string idtransaccion)
+        {
+            List<Reporte> oLista = new List<Reporte>();
+
+            oLista = new CN_Reporte().Ventas(fechainicio, fechafin, idtransaccion);
+
+            return Json(new { data = oLista }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        // 
+
+
 
 
 

@@ -163,9 +163,7 @@ namespace CapaDatos
                 {
                     SqlCommand cmd = new SqlCommand("sp_EliminarProducto", oconexion);
                     cmd.Parameters.AddWithValue("IDProducto", id);
-
-
-                    cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("Mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -176,6 +174,7 @@ namespace CapaDatos
                     resultado = Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
                     Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
                 }
+
             }
             catch (Exception ex)
             {
@@ -183,9 +182,8 @@ namespace CapaDatos
                 Mensaje = ex.Message;
             }
             return resultado;
-
-            
         }
+
         public bool GuardarDatosImagen( Producto obj, out string Mensaje)
         {
 

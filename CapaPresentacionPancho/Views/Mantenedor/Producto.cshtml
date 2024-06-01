@@ -48,7 +48,7 @@
             </div>
             <div class="modal-body">
                 <!-- ID -->
-                <input id="txtid" type="hidden" value="0" />
+                <input id="txtid" type="text" value="0" />
 
                 <form id="contenedor" class="row">
                     <div class="col-sm-3">
@@ -346,13 +346,15 @@
 
         //Modal Borrar
         $('#tabla tbody').on("click", '.btn-eliminar', function () {
-            var marcaSeleccionada = $(this).closest("tr");
-            var data = tabladata.row(marcaSeleccionada).data();
+
+            var productoSeleccionado = $(this).closest("tr");
+
+            var data = tabladata.row(productoSeleccionado).data();
             //carga btn eliminar
             swal({
                 //configuraciones de alertas btn eliminar
                 title: "¿Estas Seguro?",
-                text: "¿Desea eliminar el Prodcuto?",
+                text: "¿Desea eliminar el producto?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonClass: "btn-primary",
@@ -361,21 +363,21 @@
                 closeOnConfirm: true
             },
 
-            //POST
-                function () {
+            //ELINIAR PRODUCTOS
+                             function () {
                     jQuery.ajax({
-                        url: '@Url.Action("EliminarMarca", "Mantenedor")',
+                        url: '@Url.Action("EliminarProducto", "Mantenedor")',
                         type: "POST",
-                        data: JSON.stringify({ id: data.IDMarca }),
+                        data: JSON.stringify({ id: data.IDProducto }),
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         success: function (data) {
 
 
                             if (data.resultado) {
-                                tabladata.row(marcaSeleccionada).remove().draw();
+                                tabladata.row(productoSeleccionado).remove().draw();
                             } else {
-     swal("No se puede eliminar pe mano", data.mensaje, "error pe cause")
+                                swal("No se puede eliminar pe mano", data.mensaje, "error pe cause")
                             }
                         },
                         error: function (error) {
@@ -386,6 +388,7 @@
 
             console.log(data);
 })
+
 
 
         //guaardar
