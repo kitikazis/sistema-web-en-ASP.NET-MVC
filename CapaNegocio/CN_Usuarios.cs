@@ -25,7 +25,7 @@ namespace CapaNegocio
         //registra Usuario
         public int Registrar(Usuario obj, out string Mensaje)
         {
- Mensaje = string.Empty;
+            Mensaje = string.Empty;
 
             if (string.IsNullOrEmpty(obj.Nombres) || string.IsNullOrWhiteSpace(obj.Nombres))
             {
@@ -108,9 +108,62 @@ else
         // Eliminar 
         public bool Eliminar(int id, out string Mensaje)
         {
-return objCapaDato.Eliminar(id,out Mensaje);
+            return objCapaDato.Eliminar(id,out Mensaje);
 
         }
+
+        //cmaibar clave usuarios
+        public bool CambiarClave(int idusuario, string nuevaclave, out string Mensaje)
+        {
+
+            return objCapaDato.CambiarClave(idusuario, nuevaclave, out Mensaje);
+        }
+
+        //reees usuarios
+        public bool ReestablecerClave(int idusuario, string correo, out string Mensaje)
+        {
+
+            Mensaje = string.Empty;
+            string nuevaclave = CN_Recursos.GenerarClave();
+            //encriptacion recurso sha256
+            bool resultado = objCapaDato.ReestablecerClave(idusuario, CN_Recursos.ConvertirSha256(nuevaclave), out Mensaje);
+
+            if (resultado)
+            {
+
+                string asunto = "Contraseña Reestablecida";
+                string mensaje_correo = "<h3>Su cuenta fue reestablecida correctamente</h3></br><p>Su contraseña para acceder ahora es: !clave!</p>";
+                mensaje_correo = mensaje_correo.Replace("!clave!", nuevaclave);
+
+
+                bool respuesta = CN_Recursos.EnviarCorreo(correo, asunto, mensaje_correo);
+
+                if (respuesta)
+                {
+
+                    return true;
+                }
+                else
+                {
+                    Mensaje = "No se pudo enviar el correo";
+                    return false;
+                }
+
+            }
+            else
+            {
+                Mensaje = "No se pudo reestablecer la contraseña";
+
+                return false;
+            }
+
+
+        }
+
+
+
+
+
 
 
 
