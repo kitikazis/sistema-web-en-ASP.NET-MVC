@@ -138,25 +138,26 @@
 @section scripts{
 
     <script>
+    //Fechas de incio y final
+        $("#txtfechainicio").datepicker({ dateFormat: 'dd/mm/yy' }).datepicker('setDate', new Date())
+        $("#txtfechafin").datepicker({ dateFormat: 'dd/mm/yy' }).datepicker('setDate', new Date())
+
+
+
+
     // Contador para el Cantidad Producto
-         jQuery.ajax({
-    url: '@Url.Action("VistaDashBoard", "Home")',
-    type: "GET",
-    dataType: "json",
-    contentType: "application/json; charset=utf-8",
-    success: function (data) {
-
-        var objeto = data.resultado;
-
-        $("#totalcliente").text(objeto.TotalCliente)
-        $("#totalventa").text(objeto.TotalVenta)
-        $("#totalproducto").text(objeto.TotalProducto)
-
-    }
-         });
-
-
-
+        jQuery.ajax({
+            url: '@Url.Action("VistaDashBoard", "Home")',
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                var objeto = data.resultado;
+                $("#totalcliente").text(objeto.TotalCliente)
+                $("#totalventa").text(objeto.TotalVenta)
+                $("#totalproducto").text(objeto.TotalProducto)
+            }
+        });
     </script>
 
 
