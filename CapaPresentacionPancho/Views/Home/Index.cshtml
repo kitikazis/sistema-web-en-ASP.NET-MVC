@@ -57,43 +57,45 @@
 
 </div>
 
-<!-- EXPOERTA MARCA -->
+<!-- VENTAS-->
 <div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-tags me-1"></i>
         Historial de Ventas
     </div>
     <div class="card-body">
-
+        <!-- EXPORTAL VENTA  EXCEL -->
         <form action="@Url.Action("ExportarVenta","Home")" method="post">
 
             <div class="row align-items-end">
                 <div class="col-sm-2">
                     <div class="mb-2">
+                        <!--Fecha inicio -->
                         <label class="form-label">Fecha de Inicio:</label>
                         <input class="form-control" type="text" id="txtfechainicio" name="fechainicio" />
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="mb-2">
+                        <!--Fecha Fin -->
                         <label class="form-label">Fecha Fin:</label>
                         <input class="form-control" type="text" id="txtfechafin" name="fechafin" />
                     </div>
                 </div>
-
+                <!--ID Transaccion -->
                 <div class="col-sm-2">
                     <div class="mb-2">
                         <label class="form-label">Id Transaccion:</label>
                         <input class="form-control" type="text" id="txtidtransaccion" name="idtransaccion" />
                     </div>
                 </div>
-
+                <!--Buscar -->
                 <div class="col-sm-2">
                     <div class="d-grid mb-2">
                         <button class="btn btn-primary" id="btnbuscar" type="button"><i class="fas fa-search"></i> Buscar</button>
                     </div>
                 </div>
-
+                <!--Exportal btn -->
                 <div class="col-sm-2">
                     <div class="d-grid mb-2">
                         <button class="btn btn-success" type="submit"><i class="fas fa-file-excel"></i> Exportar</button>
@@ -134,30 +136,86 @@
 </div>
 
 
-
 @section scripts{
 
     <script>
-    //Fechas de incio y final
-        $("#txtfechainicio").datepicker({ dateFormat: 'dd/mm/yy' }).datepicker('setDate', new Date())
-        $("#txtfechafin").datepicker({ dateFormat: 'dd/mm/yy' }).datepicker('setDate', new Date())
+
+
+        var tabladata;
+
+        $(document).ready(function () {
+
+            //fecha inicio y fecha final
+            $("#txtfechainicio").datepicker({dateFormat : 'dd/mm/yy'}).datepicker('setDate',new Date())
+            $("#txtfechafin").datepicker({ dateFormat: 'dd/mm/yy' }).datepicker('setDate', new Date())
+
+
+             jQuery.ajax({
+                url: '@Url.Action("VistaDashBoard", "Home")',
+                type: "GET",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    var objeto = data.resultado;
+
+                    $("#totalcliente").text(objeto.TotalCliente)
+                    $("#totalventa").text(objeto.TotalVenta)
+                    $("#totalproducto").text(objeto.TotalProducto)
+
+                }
+             });
+
+        // Listar Reporte
+
+            var Url = '@Url.Action("ListaReporte", "Home")' +
+            "?fechainicio=" + $("#txtfechainicio").val() +
+            "&fechafin=" + $("#txtfechafin").val() +
+            "&idtransaccion=" + $("#txtidtransaccion").val()
+
+
+            tabladata = $("#tabla").DataTable({
+                responsive: true,
+                ordering: false,
+                "ajax": {
+                    url: Url,
+                    type: "GET",
+                    dataType: "json"
+                },
+                "columns": [
+                    {"data":"FechaVenta"},
+                    {"data":"Cliente"},
+                    {"data":"Producto"},
+                    {"data":"Precio"},
+                    {"data":"Cantidad"},
+                    {"data":"Total"},
+                    {"data":"IdTransaccion"}
+                ],
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+                }
+
+            });
+
+
+        })
+
+        $("#btnbuscar").on("click", function () {
+
+             var nueva_url = '@Url.Action("ListaReporte", "Home")' +
+            "?fechainicio=" + $("#txtfechainicio").val() +
+            "&fechafin=" + $("#txtfechafin").val() +
+                "&idtransaccion=" + $("#txtidtransaccion").val()
+
+
+            tabladata.ajax.url(nueva_url).load();
+
+        })
 
 
 
 
-    // Contador para el Cantidad Producto
-        jQuery.ajax({
-            url: '@Url.Action("VistaDashBoard", "Home")',
-            type: "GET",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                var objeto = data.resultado;
-                $("#totalcliente").text(objeto.TotalCliente)
-                $("#totalventa").text(objeto.TotalVenta)
-                $("#totalproducto").text(objeto.TotalProducto)
-            }
-        });
+
     </script>
 
 
