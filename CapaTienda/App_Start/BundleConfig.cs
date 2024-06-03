@@ -24,7 +24,7 @@ namespace CapaTienda
                     "~/Scripts/fontawesome/all.min.js",
                     "~/Scripts/loadingoverlay.min.js",
                     "~/Scripts/fontawesome/all.min.js",
-                    "~/Scripts/sweetalert.js",
+                    "~/Scripts/sweetalert.min.js",
                     "~/Scripts/bootstrap.bundle.js"
                       
                       ));

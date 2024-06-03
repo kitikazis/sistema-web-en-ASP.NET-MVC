@@ -30,7 +30,6 @@
                             </div>
                             <div id="contenedor_categoria" class="card-body">
 
-
                             </div>
                         </div>
                     </div>
@@ -65,8 +64,27 @@
 
 
             </div>
-            <!-- s-->
+
             <div class="col-sm-9">
+
+                <nav aria-label="Page navigation example">
+                    <p class="text-black-50">
+                        Total Registros encontrados <span id="totalregistros">0</span>
+                    </p>
+
+                    <ul class="pagination justify-content-start">
+                        <li class="page-item disabled">
+                            <button class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</button>
+                        </li>
+                        <li class="page-item active"><button class="page-link" href="#">1</button></li>
+                        <li class="page-item"><button class="page-link" href="#">2</button></li>
+                        <li class="page-item"><button class="page-link" href="#">3</button></li>
+                        <li class="page-item">
+                            <button class="page-link" href="#">Next</button>
+                        </li>
+                    </ul>
+                </nav>
+
                 <div id="contenedor_producto" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     <div class="col mb-5">
                         <div class="card h-100">
@@ -126,8 +144,8 @@
 
         </div>
 
-    </div>
 
+    </div>
 </section>
 
 
@@ -135,44 +153,57 @@
 
     <script>
 
+
+        var _PaginaActual = 1;
+
         $(document).ready(function () {
+
             MostrarCategorias();
-            MostrarProductos(0,0);
+            MostrarProductos(0, 0)
         })
 
-          function MostrarCategorias() {
 
 
-              jQuery.ajax({
-                  url: "@Url.Action("ListaCategorias", "Tienda")",
-                  type: "GET",
-                  dataType: "json",
-                  contentType: "application/json; charset=utf-8",
-                  success: function (response) {
-                      $("#contenedor_categoria").LoadingOverlay("hide");
-
-                      $("<div>").addClass("form-check").append(
-
-                          $("<input>").addClass("form-check-input").attr({ "type": "radio", "name": "categoria", "value": "0", "id": "cx", "checked": "checked" }),
-                          $("<label>").addClass("form-check-label").text("Todos").attr({ "for": "cx" })
-                      ).appendTo("#contenedor_categoria")
+        function MostrarCategorias() {
 
 
-                      $.each(response.data, function (i, element) {
+            jQuery.ajax({
+                url:"@Url.Action("ListaCategorias", "Tienda")",
+                type: "GET",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
 
-                          $("<div>").addClass("form-check").append(
-                              $("<input>").addClass("form-check-input").attr({ "type": "radio", "name": "categoria", "value": element.IdCategoria, "id": "c" + i }),
-                              $("<label>").addClass("form-check-label").text(element.Descripcion).attr({ "for": "c" + i })
-                          ).appendTo("#contenedor_categoria")
-                      })
-                  },
-          beforeSend: function () {
-                   $("contenedor_categoria").LoadingOverlay("show");
-                 }
-              })
+                    $("#contenedor_categoria").LoadingOverlay("hide");
+
+                    $("<div>").addClass("form-check").append(
+
+                        $("<input>").addClass("form-check-input").attr({ "type": "radio", "name": "categoria", "value": "0", "id": "cx", "checked": "checked" }),
+                        $("<label>").addClass("form-check-label").text("Todos").attr({ "for": "cx"})
+                    ).appendTo("#contenedor_categoria")
+
+
+                    $.each(response.data, function (i, element) {
+
+                        $("<div>").addClass("form-check").append(
+                            $("<input>").addClass("form-check-input").attr({ "type": "radio", "name": "categoria", "value": element.IdCategoria, "id": "c" + i}),
+                            $("<label>").addClass("form-check-label").text(element.Descripcion).attr({ "for": "c" + i})
+                        ).appendTo("#contenedor_categoria")
+
+                    })
+
+                    MostrarMarca();
+
+                },
+                beforeSend: function () {
+                    $("#contenedor_categoria").LoadingOverlay("show");
+                }
+
+            })
+
         }
 
-        //mostra marca
+
         function MostrarMarca() {
 
             var _idcategoria = $("input[name=categoria]:checked").val()
@@ -204,7 +235,9 @@
                     })
 
                 },
-               
+                beforeSend: function () {
+                    $("#contenedor_marca").LoadingOverlay("show");
+                }
 
             })
 
@@ -215,14 +248,14 @@
 
         })
 
-        //mostrar prudtos
-        function MostrarProductos(_idcategoria, _idmarca) {
+
+         function MostrarProductos(_idcategoria,_idmarca) {
 
 
             jQuery.ajax({
                 url:"@Url.Action("ListarProducto", "Tienda")",
                 type: "POST",
-                data: JSON.stringify({ idcategoria: _idcategoria, idmarca: _idmarca, }),
+                data: JSON.stringify({ idcategoria: _idcategoria, idmarca: _idmarca, nroPagina : _PaginaActual}),
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
@@ -233,8 +266,8 @@
 
                         $("<div>").addClass("col mb-5").append(
                             $("<div>").addClass("card h-100").append(
-                               $("<img>").addClass("card-img-top").attr({ "src": "data:image/" + element.Extension + ";base64," + element.Base64 }),
-                              //  $("<img>").addClass("card-img-top").attr({ "src": element.RutaImagen }),
+                                /*$("<img>").addClass("card-img-top").attr({ "src": "data:image/" + element.Extension + ";base64," + element.Base64 }),*/
+                                $("<img>").addClass("card-img-top").attr({ "src": element.RutaImagen }),
                                 $("<div>").addClass("card-body p-4").append(
                                     $("<div>").addClass("text-center").append(
                                         $("<h5>").addClass("fw-bolder").text(element.Nombre),
@@ -268,6 +301,50 @@
                         ).appendTo("#contenedor_producto")
 
                     })
+
+
+
+                    //EMPIEZA LOGICA
+                    $("#totalregistros").text(response.totalRegistros);
+                    var desactivo_ant = _PaginaActual == 1 ? " disabled" : ""
+                    var desactivo_sig = response.totalPaginas == _PaginaActual ? " disabled" : ""
+                    var rango = [];
+
+
+                    if (_PaginaActual == 1)
+                        rango.push(_PaginaActual, _PaginaActual + 1, _PaginaActual + 2)
+                    else if (_PaginaActual == response.totalPaginas)
+                        rango.push(_PaginaActual - 2, _PaginaActual - 1, _PaginaActual)
+                    else
+                        rango.push(_PaginaActual - 1, _PaginaActual, _PaginaActual + 1)
+
+                    $(".pagination").html("");
+                    $(".pagination").append(
+                        $("<li>").addClass("page-item" + desactivo_ant).append(
+                            $("<button>").addClass("page-link previus").text("Anterior")
+                        )
+                    )
+
+
+                    for (nroPagina = 1; nroPagina <= response.totalPaginas; nroPagina++) {
+                        if (rango.includes(nroPagina)) {
+                            var clase = (nroPagina == _PaginaActual) ? " active" : "";
+                            $(".pagination").append(
+                                $("<li>").addClass("page-item" + clase).append(
+                                    $("<button>").addClass("page-link").text(nroPagina)
+                                )
+                            )
+                        }
+                    }
+
+                    $(".pagination").append(
+                        $("<li>").addClass("page-item" + desactivo_sig).append(
+                            $("<button>").addClass("page-link next").text("Siguiente")
+                        )
+                    )
+
+
+
                 },
                 beforeSend: function () {
                     $("#contenedor_producto").LoadingOverlay("show");
@@ -281,7 +358,7 @@
 
         $("#btnaplicarfiltro").click(function () {
 
-      
+            _PaginaActual = 1
             var _idcategoria = $("input[name=categoria]:checked").val()
             var _idmarca = $("input[name=marca]:checked").val()
             MostrarProductos(_idcategoria, _idmarca)
@@ -290,8 +367,62 @@
 
 
 
+        $(document).on("click", "button.page-link", function () {
 
-     
+            if ($(this).hasClass("previus")) {
+                _PaginaActual = _PaginaActual - 1;
+            } else if ($(this).hasClass("next")) {
+                _PaginaActual = _PaginaActual + 1;
+            } else {
+                _PaginaActual = parseInt($(this).text())
+            }
+
+            var idcategoria = $('input[name=categoria]:checked').val();
+            var idmarca = $('input[name=marca]:checked').val();
+            MostrarProductos(idcategoria, idmarca)
+
+        })
+
+
+
+        $(document).on("click", "button.agregarcarrito", function () {
+
+            console.log($(this).data("idproducto"))
+
+            jQuery.ajax({
+                url: '@Url.Action("AgregarCarrito", "Tienda")',
+                type: "POST",
+                data: JSON.stringify({ idproducto: $(this).data("idproducto") }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (data.respuesta) {
+
+                        MostrarCantidadCarrito();
+
+                        swal({
+                            title: "Agregado al carrito",
+                            text: "¿Desea ir al carrito?",
+                            type: "success",
+                            showCancelButton: true,
+                            confirmButtonClass: "btn-primary",
+                            confirmButtonText: "Si",
+                            cancelButtonText: "No",
+                            closeOnConfirm: true
+                        }, function () {
+
+                            window.location.href = '@Url.Action("Carrito","Tienda")'
+
+                        })
+                    } else {
+                        swal("", data.mensaje, "warning");
+                    }
+                }
+
+            });
+
+        })
 
 
     </script>

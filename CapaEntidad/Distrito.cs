@@ -8,7 +8,7 @@ namespace CapaEntidad
 {
     public class Distrito
     {
-        public int IDDistrito { get; set; }
+        public string IDDistrito { get; set; }
         public string Descripcion { get; set; }
 
     }
