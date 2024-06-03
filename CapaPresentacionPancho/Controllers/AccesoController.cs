@@ -17,7 +17,6 @@ namespace CapaPresentacionPancho.Controllers
         {
             return View();
         }
-
         public ActionResult CambiarClave()
         {
             return View();
@@ -27,55 +26,48 @@ namespace CapaPresentacionPancho.Controllers
             return View();
         }
 
-
-
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////
-        //index login 
+        //index login
         [HttpPost]
         public ActionResult Index(string correo, string clave)
         {
-           
-                Usuario oUsuario = new Usuario();
+            Usuario oUsuario = new Usuario();
 
-                // Convertir el correo a minúsculas
-                string correoLower = correo.ToLower();
+            // Convertir el correo a minúsculas
+            string correoLower = correo.ToLower();
 
-                // Buscar el usuario ignorando mayúsculas/minúsculas en el correo
-                oUsuario = new CN_Usuarios().Listar().Where(u => u.Correo.ToLower() == correoLower && u.Clave == CN_Recursos.ConvertirSha256(clave)).FirstOrDefault();
+            // Buscar el usuario ignorando mayúsculas/minúsculas en el correo
+            oUsuario = new CN_Usuarios().Listar().Where(u => u.Correo.ToLower() == correoLower && u.Clave == CN_Recursos.ConvertirSha256(clave)).FirstOrDefault();
 
-                if (oUsuario == null)
-                {// envia a la misma vista que es index
-                    ViewBag.Error = "Correo o contraseña no correcta";
-                    return View();
-                }
-                else
+            if (oUsuario == null)
+            {// envia a la misma vista que es index
+                ViewBag.Error = "Correo o contraseña no correcta";
+                return View();
+            }
+            else
+            {
+                if (oUsuario.Reestablecer)
                 {
-                    if (oUsuario.Reestablecer)
-                    {
-                        // guardar informacion y compartir de multiples vistas que estan dentro del mismo contralador
-                        TempData["IdUsuario"] = oUsuario.IDUsuario;
-                        return RedirectToAction("CambiarClave");
-                    }
-
-                    //cuck
-                    FormsAuthentication.SetAuthCookie(oUsuario.Correo, false);
-
-                    ViewBag.Error = null;
-
-                    return RedirectToAction("Index", "Home");
+                    // guardar informacion y compartir de multiples vistas que estan dentro del mismo contralador
+                    TempData["IdUsuario"] = oUsuario.IdUsuario;
+                    return RedirectToAction("CambiarClave");
                 }
-        }//>correcion mayusculas y minusculas
+
+                FormsAuthentication.SetAuthCookie(oUsuario.Correo, false);
+
+                ViewBag.Error = null;
+
+                return RedirectToAction("Index", "Home");
+            }
+        }
 
 
-        //cambiar clave usuario el admin
-        [HttpPost] 
+        [HttpPost]
         public ActionResult CambiarClave(string idusuario, string claveactual, string nuevaclave, string confirmarclave)
         {
 
             Usuario oUsuario = new Usuario();
 
-            oUsuario = new CN_Usuarios().Listar().Where(u => u.IDUsuario == int.Parse(idusuario)).FirstOrDefault();
+            oUsuario = new CN_Usuarios().Listar().Where(u => u.IdUsuario == int.Parse(idusuario)).FirstOrDefault();
 
             if (oUsuario.Clave != CN_Recursos.ConvertirSha256(claveactual))
             {
@@ -117,13 +109,10 @@ namespace CapaPresentacionPancho.Controllers
             }
 
         }
-
-
-        //rrestablecer contrañsea usuario
+        // Reestablecer contraseña usuario
         [HttpPost]
         public ActionResult Reestablecer(string correo)
         {
-
             Usuario ousurio = new Usuario();
 
             // Convertir el correo a minúsculas
@@ -139,7 +128,7 @@ namespace CapaPresentacionPancho.Controllers
             }
 
             string mensaje = string.Empty;
-            bool respuesta = new CN_Usuarios().ReestablecerClave(ousurio.IDUsuario, correo, out mensaje);
+            bool respuesta = new CN_Usuarios().ReestablecerClave(ousurio.IdUsuario, correo, out mensaje);
 
             if (respuesta)
             {
@@ -151,11 +140,8 @@ namespace CapaPresentacionPancho.Controllers
                 ViewBag.Error = mensaje;
                 return View();
             }
-        } //correcion mayusculas y minusculas
+        }
 
-
-
-        //cerrar session
         public ActionResult CerrarSesion()
         {
 

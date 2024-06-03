@@ -49,7 +49,7 @@
     <Compile Include="DetalleVenta.cs" />
     <Compile Include="Distrito.cs" />
     <Compile Include="Marca.cs" />
-    <Compile Include="Paypal\Checkout_Orders.cs" />
+    <Compile Include="Paypal\Checkout_Order.cs" />
     <Compile Include="Paypal\Response_Capture.cs" />
     <Compile Include="Paypal\Response_Checkout.cs" />
     <Compile Include="Paypal\Response_Paypal.cs" />

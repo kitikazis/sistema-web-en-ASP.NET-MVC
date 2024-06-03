@@ -34,7 +34,7 @@ namespace CapaDatos
                             lista.Add(
                                 new Departamento()
                                 {
-                                    IDDepartamento = dr["IdDepartamento"].ToString(),
+                                    IdDepartamento = dr["IdDepartamento"].ToString(),
                                     Descripcion = dr["Descripcion"].ToString(),
                                 });
                         }
@@ -76,7 +76,7 @@ namespace CapaDatos
                             lista.Add(
                                 new Provincia()
                                 {
-                                    IDProvincia = dr["IdProvincia"].ToString(),
+                                    IdProvincia = dr["IdProvincia"].ToString(),
                                     Descripcion = dr["Descripcion"].ToString(),
                                 });
                         }
@@ -119,7 +119,7 @@ namespace CapaDatos
                             lista.Add(
                                 new Distrito()
                                 {
-                                    IDDistrito = dr["IdDistrito"].ToString(),
+                                    IdDistrito = dr["IdDistrito"].ToString(),
                                     Descripcion = dr["Descripcion"].ToString(),
                                 });
                         }

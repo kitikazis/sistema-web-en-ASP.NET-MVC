@@ -22,14 +22,14 @@ namespace CapaDatos
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
                 {
                     SqlCommand cmd = new SqlCommand("usp_RegistrarVenta", oconexion);
-                    cmd.Parameters.AddWithValue("IdCliente", obj.IDCliente);
+                    cmd.Parameters.AddWithValue("IdCliente", obj.IdCliente);
                     cmd.Parameters.AddWithValue("TotalProducto", obj.TotalProducto);
                     cmd.Parameters.AddWithValue("MontoTotal", obj.MontoTotal);
                     cmd.Parameters.AddWithValue("Contacto", obj.Contacto);
-                    cmd.Parameters.AddWithValue("IdDistrito", obj.IDDistrito);
+                    cmd.Parameters.AddWithValue("IdDistrito", obj.IdDistrito);
                     cmd.Parameters.AddWithValue("Telefono", obj.Telefono);
                     cmd.Parameters.AddWithValue("Direccion", obj.Direccion);
-                    cmd.Parameters.AddWithValue("IdTransaccion", obj.IDTransaccion);
+                    cmd.Parameters.AddWithValue("IdTransaccion", obj.IdTransaccion);
                     cmd.Parameters.AddWithValue("DetalleVenta", DetalleVenta);
                     cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("Mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
@@ -87,7 +87,7 @@ namespace CapaDatos
 
                                 Cantidad = Convert.ToInt32(dr["Cantidad"]),
                                 Total = Convert.ToDecimal(dr["Total"], new CultureInfo("es-PE")),
-                                IDTransaccion = dr["IdTransaccion"].ToString()
+                                IdTransaccion = dr["IdTransaccion"].ToString()
                             });
                         }
                     }

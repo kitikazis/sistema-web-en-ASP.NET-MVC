@@ -56,7 +56,7 @@ namespace CapaPresentacionPancho.Controllers
             object resultado;
             string mensaje = string.Empty;
 
-            if (objeto.IDCategoria == 0)
+            if (objeto.IdCategoria == 0)
             {
 
                 resultado = new CN_Categoria().Registrar(objeto, out mensaje);
@@ -102,7 +102,7 @@ namespace CapaPresentacionPancho.Controllers
             object resultado;
             string mensaje = string.Empty;
 
-            if (objeto.IDMarca == 0)
+            if (objeto.IdMarca == 0)
             {
                 resultado = new CN_Marca().Registrar(objeto, out mensaje);
             }

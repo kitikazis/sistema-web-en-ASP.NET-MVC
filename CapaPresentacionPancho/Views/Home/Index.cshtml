@@ -57,45 +57,43 @@
 
 </div>
 
-<!-- VENTAS-->
+
 <div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-tags me-1"></i>
         Historial de Ventas
     </div>
     <div class="card-body">
-        <!-- EXPORTAL VENTA  EXCEL -->
+
         <form action="@Url.Action("ExportarVenta","Home")" method="post">
 
             <div class="row align-items-end">
                 <div class="col-sm-2">
                     <div class="mb-2">
-                        <!--Fecha inicio -->
                         <label class="form-label">Fecha de Inicio:</label>
                         <input class="form-control" type="text" id="txtfechainicio" name="fechainicio" />
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="mb-2">
-                        <!--Fecha Fin -->
                         <label class="form-label">Fecha Fin:</label>
                         <input class="form-control" type="text" id="txtfechafin" name="fechafin" />
                     </div>
                 </div>
-                <!--ID Transaccion -->
+
                 <div class="col-sm-2">
                     <div class="mb-2">
                         <label class="form-label">Id Transaccion:</label>
                         <input class="form-control" type="text" id="txtidtransaccion" name="idtransaccion" />
                     </div>
                 </div>
-                <!--Buscar -->
+
                 <div class="col-sm-2">
                     <div class="d-grid mb-2">
                         <button class="btn btn-primary" id="btnbuscar" type="button"><i class="fas fa-search"></i> Buscar</button>
                     </div>
                 </div>
-                <!--Exportal btn -->
+
                 <div class="col-sm-2">
                     <div class="d-grid mb-2">
                         <button class="btn btn-success" type="submit"><i class="fas fa-file-excel"></i> Exportar</button>
@@ -136,6 +134,7 @@
 </div>
 
 
+
 @section scripts{
 
     <script>
@@ -145,7 +144,7 @@
 
         $(document).ready(function () {
 
-            //fecha inicio y fecha final
+
             $("#txtfechainicio").datepicker({dateFormat : 'dd/mm/yy'}).datepicker('setDate',new Date())
             $("#txtfechafin").datepicker({ dateFormat: 'dd/mm/yy' }).datepicker('setDate', new Date())
 
@@ -166,7 +165,7 @@
                 }
              });
 
-        // Listar Reporte
+        // fechainicio,string fechafin,string idtransaccion
 
             var Url = '@Url.Action("ListaReporte", "Home")' +
             "?fechainicio=" + $("#txtfechainicio").val() +

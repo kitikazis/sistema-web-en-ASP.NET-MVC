@@ -24,3 +24,8 @@ C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\Cap
 C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaNegocio\bin\Debug\System.Configuration.ConfigurationManager.dll
 C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaNegocio\bin\Debug\Newtonsoft.Json.xml
 C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaNegocio\bin\Debug\System.Configuration.ConfigurationManager.xml
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaNegocio\bin\Debug\CapaNegocio.dll.config
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaNegocio\bin\Debug\Firebase.Auth.dll
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaNegocio\bin\Debug\Firebase.Storage.dll
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaNegocio\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaNegocio\bin\Debug\System.Diagnostics.DiagnosticSource.xml

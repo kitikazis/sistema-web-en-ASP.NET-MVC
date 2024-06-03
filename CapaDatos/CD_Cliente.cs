@@ -72,7 +72,7 @@ namespace CapaDatos
                             lista.Add(
                                 new Cliente()
                                 {
-                                    IDCliente = Convert.ToInt32(dr["IdCliente"]),
+                                    IdCliente = Convert.ToInt32(dr["IdCliente"]),
                                     Nombres = dr["Nombres"].ToString(),
                                     Apellidos = dr["Apellidos"].ToString(),
                                     Correo = dr["Correo"].ToString(),

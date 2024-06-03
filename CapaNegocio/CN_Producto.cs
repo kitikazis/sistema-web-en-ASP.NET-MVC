@@ -37,15 +37,15 @@ namespace CapaNegocio
             {
                 Mensaje = "La descripcion del producto no puede ser vacio";
             }
-            else if (obj.oMarca.IDMarca == 0)
+            else if (obj.oMarca.IdMarca == 0)
             {
                 Mensaje = "Debe seleccionar una marca";
             }
-            else if (obj.oCategoria.IDCategoria == 0)
+            else if (obj.oCategoria.IdCategoria == 0)
             {
                 Mensaje = "Debe seleccionar una categoria";
             }
-            else if (obj.oCategoria.IDCategoria == 0)
+            else if (obj.oCategoria.IdCategoria == 0)
             {
                 Mensaje = "Debe seleccionar una categoria";
             }
@@ -93,15 +93,15 @@ namespace CapaNegocio
             {
                 Mensaje = "La descripcion del producto no puede ser vacio";
             }
-            else if (obj.oMarca.IDMarca == 0)
+            else if (obj.oMarca.IdMarca == 0)
             {
                 Mensaje = "Debe seleccionar una marca";
             }
-            else if (obj.oCategoria.IDCategoria == 0)
+            else if (obj.oCategoria.IdCategoria == 0)
             {
                 Mensaje = "Debe seleccionar una categoria";
             }
-            else if (obj.oCategoria.IDCategoria == 0)
+            else if (obj.oCategoria.IdCategoria == 0)
             {
                 Mensaje = "Debe seleccionar una categoria";
             }

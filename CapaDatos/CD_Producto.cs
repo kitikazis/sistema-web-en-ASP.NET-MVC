@@ -47,11 +47,11 @@ namespace CapaDatos
                         {
                             lista.Add(new Producto()
                             {
-                                IDProducto = Convert.ToInt32(dr["IdProducto"]),
+                                IdProducto = Convert.ToInt32(dr["IdProducto"]),
                                 Nombre = dr["Nombre"].ToString(),
                                 Descripcion = dr["Descripcion"].ToString(),
-                                oMarca = new Marca() { IDMarca = Convert.ToInt32(dr["IdMarca"]), Descripcion = dr["DesMarca"].ToString() },
-                                oCategoria = new Categoria() { IDCategoria = Convert.ToInt32(dr["IdCategoria"]), Descripcion = dr["DesCategoria"].ToString() },
+                                oMarca = new Marca() { IdMarca = Convert.ToInt32(dr["IdMarca"]), Descripcion = dr["DesMarca"].ToString() },
+                                oCategoria = new Categoria() { IdCategoria = Convert.ToInt32(dr["IdCategoria"]), Descripcion = dr["DesCategoria"].ToString() },
                                 Precio = Convert.ToDecimal(dr["Precio"], new CultureInfo("es-PE")),
                                 Stock = Convert.ToInt32(dr["Stock"]),
                                 RutaImagen = dr["RutaImagen"].ToString(),
@@ -100,11 +100,11 @@ namespace CapaDatos
                         {
                             lista.Add(new Producto()
                             {
-                                IDProducto = Convert.ToInt32(dr["IdProducto"]),
+                                IdProducto = Convert.ToInt32(dr["IdProducto"]),
                                 Nombre = dr["Nombre"].ToString(),
                                 Descripcion = dr["Descripcion"].ToString(),
-                                oMarca = new Marca() { IDMarca = Convert.ToInt32(dr["IdMarca"]), Descripcion = dr["DesMarca"].ToString() },
-                                oCategoria = new Categoria() { IDCategoria = Convert.ToInt32(dr["IdCategoria"]), Descripcion = dr["DesCategoria"].ToString() },
+                                oMarca = new Marca() { IdMarca = Convert.ToInt32(dr["IdMarca"]), Descripcion = dr["DesMarca"].ToString() },
+                                oCategoria = new Categoria() { IdCategoria = Convert.ToInt32(dr["IdCategoria"]), Descripcion = dr["DesCategoria"].ToString() },
                                 Precio = Convert.ToDecimal(dr["Precio"], new CultureInfo("es-PE")),
                                 Stock = Convert.ToInt32(dr["Stock"]),
                                 RutaImagen = dr["RutaImagen"].ToString(),
@@ -142,8 +142,8 @@ namespace CapaDatos
                     SqlCommand cmd = new SqlCommand("sp_RegistrarProducto", oconexion);
                     cmd.Parameters.AddWithValue("Nombre", obj.Nombre);
                     cmd.Parameters.AddWithValue("Descripcion", obj.Descripcion);
-                    cmd.Parameters.AddWithValue("IdMarca", obj.oMarca.IDMarca);
-                    cmd.Parameters.AddWithValue("IdCategoria", obj.oCategoria.IDCategoria);
+                    cmd.Parameters.AddWithValue("IdMarca", obj.oMarca.IdMarca);
+                    cmd.Parameters.AddWithValue("IdCategoria", obj.oCategoria.IdCategoria);
                     cmd.Parameters.AddWithValue("Precio", obj.Precio);
                     cmd.Parameters.AddWithValue("Stock", obj.Stock);
                     cmd.Parameters.AddWithValue("Activo", obj.Activo);
@@ -176,11 +176,11 @@ namespace CapaDatos
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
                 {
                     SqlCommand cmd = new SqlCommand("sp_EditarProducto", oconexion);
-                    cmd.Parameters.AddWithValue("IdProducto", obj.IDProducto);
+                    cmd.Parameters.AddWithValue("IdProducto", obj.IdProducto);
                     cmd.Parameters.AddWithValue("Nombre", obj.Nombre);
                     cmd.Parameters.AddWithValue("Descripcion", obj.Descripcion);
-                    cmd.Parameters.AddWithValue("IdMarca", obj.oMarca.IDMarca);
-                    cmd.Parameters.AddWithValue("IdCategoria", obj.oCategoria.IDCategoria);
+                    cmd.Parameters.AddWithValue("IdMarca", obj.oMarca.IdMarca);
+                    cmd.Parameters.AddWithValue("IdCategoria", obj.oCategoria.IdCategoria);
                     cmd.Parameters.AddWithValue("Precio", obj.Precio);
                     cmd.Parameters.AddWithValue("Stock", obj.Stock);
                     cmd.Parameters.AddWithValue("Activo", obj.Activo);
@@ -223,7 +223,7 @@ namespace CapaDatos
                     SqlCommand cmd = new SqlCommand(query, oconexion);
                     cmd.Parameters.AddWithValue("@rutaimagen", obj.RutaImagen);
                     cmd.Parameters.AddWithValue("@nombreimagen", obj.NombreImagen);
-                    cmd.Parameters.AddWithValue("@idproducto", obj.IDProducto);
+                    cmd.Parameters.AddWithValue("@idproducto", obj.IdProducto);
                     cmd.CommandType = CommandType.Text;
 
                     oconexion.Open();

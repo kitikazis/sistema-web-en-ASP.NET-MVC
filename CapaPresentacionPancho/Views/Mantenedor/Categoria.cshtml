@@ -1,30 +1,34 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Categoria";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <ol class="breadcrumb mb-4 mt-4">
     <li class="breadcrumb-item"><a href="index.html">Mantemiento</a></li>
-    <li class="breadcrumb-item active">Categorias</li> <!-- Corregido el nombre de la página en la ruta de navegación -->
+    <li class="breadcrumb-item active">Categorias</li>
 </ol>
 
 <div class="card">
-    <h5 class="card-header">
+    <div class="card-header">
+
         <i class="fas fa-users me-1"></i> Lista de Categorias
-    </h5>
+    </div>
+
     <div class="card-body">
         <div class="row">
             <div class="col-12">
-
-                <button type="button" class="btn btn-success" onclick="abrirModal(null)">Crear nuevo</button>
+                <button type="button" class="btn btn-success" onclick="abrirModal(null)">Crear Nuevo</button>
             </div>
         </div>
+
         <hr />
+
         <table id="tabla" class="display cell-border" style="width: 100%">
             <thead>
                 <tr>
                     <th>Descripcion</th>
-
                     <th>Activo</th>
                     <th></th>
                 </tr>
@@ -35,7 +39,9 @@
     </div>
 </div>
 
-<!-- Modal INCIO-->
+
+
+<!-- Modal -->
 <div class="modal fade" id="FormModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -43,11 +49,11 @@
                 <h5 class="modal-title" id="exampleModalLabel">Categoria</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body ">
-                <!-- ID-->
-                <input id="txtid" type="text" value="0" />
-                <div class="row g-2">
+            <div class="modal-body">
 
+                <input id="txtid" type="hidden" value="0" />
+
+                <div class="row g-1">
 
 
                     <div class="col-sm-6">
@@ -55,25 +61,30 @@
                         <input type="text" class="form-control" id="txtdescripcion" autocomplete="off">
                     </div>
 
+
                     <div class="col-sm-6">
                         <label for="cboactivo" class="form-label">Activo</label>
                         <select id="cboactivo" class="form-select">
-                            <option selected></option>
                             <option value="1">Si</option>
                             <option value="0">No</option>
-
                         </select>
                     </div>
-                    <!-- ALETRAS-->
+
+
                 </div>
+
+
+                <!--Mensaje de alerta-->
                 <div class="row mt-2">
                     <div class="col-12">
-                        <div id="mensajeError" class="alert alert-danger" role="alert">       cambios dankger</div>
+
+                        <div id="mensajeError" class="alert alert-danger" role="alert">
+                            A simple danger alert—check it out!
+                        </div>
 
                     </div>
 
                 </div>
-
 
 
             </div>
@@ -84,76 +95,93 @@
         </div>
     </div>
 </div>
-<!-- Modal FIN -->
-@section scripts {
 
+
+@section scripts{
     <script>
 
         var tabladata;
         var filaSeleccionada;
 
-            tabladata = $("#tabla").DataTable({
-                responsive: true,
-                ordering: false,
-                //ajax
-                "ajax": {
-                    //Categoria - conentedor
-                    url: '@Url.Action("ListarCategorias", "Mantenedor")',
-                    type: "GET",
-                    dataType: "json"
-                },
-                "columns": [
 
-                    { "data": "Descripcion" },
-                    {
-                        "data": "Activo",
-                        "render": function (valor) {
-                            return valor ? '<span class="badge bg-success">SI</span>' : '<span class="badge bg-danger">No</span>';
+
+        tabladata = $("#tabla").DataTable({
+            responsive: true,
+            ordering: false,
+            "ajax": {
+                url: '@Url.Action("ListarCategorias", "Mantenedor")',
+                type: "GET",
+                dataType: "json"
+            },
+            "columns": [
+                {"data":"Descripcion"},
+                {
+                    "data": "Activo", "render": function (valor) {
+                        if (valor) {
+                            return '<span class="badge bg-success">Si</span>'
+                        } else {
+                            return '<span class="badge bg-danger">No</span>'
                         }
-                    },
-                    {
-                        "defaultContent": ' <button type="button" class="btn btn-primary btn-sm btn-editar"> <i class="fas fa-pen"></i></button>' +
-                            ' <button type="button" class="btn btn-danger btn-sm ms-2 btn-eliminar"><i class="fas fa-trash"></i></button>',
-                        "orderable": false,
-                        "searchable": false,
-                        "width": "90px"
                     }
-                ],
-                "language": {
-                    "url": "https://cdn.datatables.net/plug-ins/2.0.7/i18n/es-MX.json"
+
+                },
+                {
+                    "defaultContent": '<button type="button" class="btn btn-primary btn-sm btn-editar"><i class="fas fa-pen"></i></button>' +
+                        '<button type="button" class="btn btn-danger btn-sm ms-2 btn-eliminar"><i class="fas fa-trash"></i></button>',
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "90px"
                 }
-            });
+
+            ],
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+            }
+
+        });
 
         function abrirModal(json) {
-            $("#txtid").val(0);
- $("#txtdescripcion").val(1);
-  $("#mensajeError").hide();
- if (json != null) {
-                $("#txtid").val(json.IDCategoria);
 
+            $("#txtid").val(0);
+            $("#txtdescripcion").val("");
+            $("#cboactivo").val(1);
+
+            $("#mensajeError").hide();
+
+            if (json != null) {
+
+                $("#txtid").val(json.IdCategoria);
                 $("#txtdescripcion").val(json.Descripcion);
                 $("#cboactivo").val(json.Activo == true ? 1 : 0);
+
             }
+
             $("#FormModal").modal("show");
         }
-        //Modal Editar
-        $('#tabla tbody').on("click", '.btn-editar', function () {
+
+
+        $("#tabla tbody").on("click", '.btn-editar', function () {
+
             filaSeleccionada = $(this).closest("tr");
-            var data = tabladata.row(filaSeleccionada).data();
-            //carga btn editar
-   
+
+            var data =  tabladata.row(filaSeleccionada).data();
+
             abrirModal(data)
+
         })
 
-        //Modal Borrar
-        $('#tabla tbody').on("click", '.btn-eliminar', function () {
-            var categoriaSeleccionada = $(this).closest("tr");
-            var data = tabladata.row(categoriaSeleccionada).data();
-            //carga btn eliminar
+
+
+        $("#tabla tbody").on("click", '.btn-eliminar', function () {
+
+            var categoriaseleccionada = $(this).closest("tr");
+
+            var data = tabladata.row(categoriaseleccionada).data();
+
+
             swal({
-                //configuraciones de alertas btn eliminar
-                title: "¿Estas Seguro?",
-                text: "¿Desea eliminar el usuario?",
+                title: "Esta Seguro?",
+                text: "¿Desea eliminar el categoria?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonClass: "btn-primary",
@@ -161,69 +189,66 @@
                 cancelButtonText: "No",
                 closeOnConfirm: true
             },
+            function () {
 
-            //POST
-                function () {
-                    jQuery.ajax({
-                        url: '@Url.Action("EliminarCategoria", "Mantenedor")',
-                        type: "POST",
-                        data: JSON.stringify({ id: data.IDCategoria }),
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        success: function (data) {
+                 jQuery.ajax({
+                    url: '@Url.Action("EliminarCategoria", "Mantenedor")',
+                    type: "POST",
+                     data: JSON.stringify({ id: data.IdCategoria }),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
 
-                            debugger;
-                            if (data.resultado) {
-                                tabladata.row(categoriaSeleccionada).remove().draw();
-                            } else {
-     swal("No se puede eliminar pe mano", data.mensaje, "error pe cause")
-                            }
-                        },
-                        error: function (error) {
-                            console.log(error)
+
+                        if (data.resultado) {
+
+                            tabladata.row(categoriaseleccionada).remove().draw();
+                        } else {
+
+                            swal("No se pudo eliminar", data.mensaje, "error")
                         }
-});
-              });
+                    },
+                    error: function (error) {
+                        console.log(error)
+                    }
+                });
+
+
+
+
+            });
+
 
             console.log(data);
-})
 
-
+        })
 
         function Guardar() {
+
             var Categoria = {
-                IDCategoria: $("#txtid").val(),
+                IdCategoria: $("#txtid").val(),
                 Descripcion: $("#txtdescripcion").val(),
                 Activo: $("#cboactivo").val() == 1 ? true : false,
             }
-            //jQuery ajax
-            jQuery.ajax({
+
+
+           jQuery.ajax({
                 url: '@Url.Action("GuardarCategoria", "Mantenedor")',
                 type: "POST",
-                data: JSON.stringify({ objeto: Categoria }),
+               data: JSON.stringify({ objeto: Categoria}),
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    $(".modal-body").LoadingOverlay("hide");
+               success: function (data) {
 
-                    //CATEGORIA nuevo
-                    if (Categoria.IDCategoria == 0) {
-                        if (data.IDCategoria != 0) {
-                            Categoria.IDCategoria = data.resultado
+                   $(".modal-body").LoadingOverlay("hide");
+
+                    //CATEGORIA NUEVO
+                   if (Categoria.IdCategoria == 0) {
+
+                        if (data.resultado != 0) {
+
+                            Categoria.IdCategoria = data.resultado;
                             tabladata.row.add(Categoria).draw(false);
-                            $("#FormModal").modal("hide")
-                        } else {
-                            $("#mensajeError").text(data.mensaje);
-                            $("#mensajeError").show();
-                        }
-                    }
-
-                    //CATEGPROA Editar
-
-                    else {
-                        if (data.resultado) {
-                            tabladata.row(filaSeleccionada).data(Categoria).draw(false);
-                            filaSeleccionada = null;
                             $("#FormModal").modal("hide");
 
                         } else {
@@ -231,35 +256,45 @@
                             $("#mensajeError").show();
                         }
                     }
+                    //CATEGORIA EDITAR
+                    else {
 
+                        if (data.resultado) {
+
+                            tabladata.row(filaSeleccionada).data(Categoria).draw(false);
+                            filaSeleccionada = null;
+                            $("#FormModal").modal("hide");
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+                    }
                 },
-                //error function
-                error: function (error) {
-                    $(".modal-body").LoadingOverlay("hide");
-                    $("#mensajeError").text("Error Ajax");
-                    $("#mensajeError").show();
+               error: function (error) {
+
+                   $(".modal-body").LoadingOverlay("hide");
+                   $("#mensajeError").text("Error Ajax");
+                   $("#mensajeError").show();
                 },
                 beforeSend: function () {
-                    $(".modal-body").LoadingOverlay("show"), {
-
-                        imageRisezeFactor: 2,
-                        text: "Cargando.....",
+                    $(".modal-body").LoadingOverlay("show", {
+                        imageResizeFactor: 2,
+                        text: "Cargando...",
                         size: 14
-                    }
+                    })
                 }
-
-                //liberia alertas https://lipis.github.io/bootstrap-sweetalert/
-                ///Funcion de Borrar
-                //Usuario installar en el Nuget -> sweetalret.boostsrap
+            });
 
 
 
 
-
-
-
-
-                });
         }
+
+
+
     </script>
+
+
 }
+
+

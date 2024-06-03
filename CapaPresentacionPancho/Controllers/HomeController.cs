@@ -13,74 +13,67 @@ namespace CapaPresentacionPancho.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-      
         public ActionResult Index()
         {
             return View();
         }
 
+
         public ActionResult Usuarios()
         {
             return View();
         }
-        //listar usuarios
+
         [HttpGet]
         public JsonResult ListarUsuarios()
         {
-            List<Usuario> oLista = new CN_Usuarios().Listar();
+
+
+            List<Usuario> oLista = new List<Usuario>();
+
+            oLista = new CN_Usuarios().Listar();
+
+
             return Json(new { data = oLista }, JsonRequestBehavior.AllowGet);
+
         }
+
 
         [HttpPost]
         public JsonResult GuardarUsuario(Usuario objeto)
         {
             object resultado;
             string mensaje = string.Empty;
-            if (objeto.IDUsuario == 0)
+
+            if (objeto.IdUsuario == 0)
             {
+
                 resultado = new CN_Usuarios().Registrar(objeto, out mensaje);
             }
             else
             {
                 resultado = new CN_Usuarios().Editar(objeto, out mensaje);
+
             }
 
             return Json(new { resultado = resultado, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
-
-
         }
 
-        //Eliminar Usuario
         [HttpPost]
         public JsonResult EliminarUsuario(int id)
         {
-            //punto depuracion 52
             bool respuesta = false;
             string mensaje = string.Empty;
 
             respuesta = new CN_Usuarios().Eliminar(id, out mensaje);
 
-
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
-
-
-
         }
 
 
-        //Vista Dasrboard - Contadores
 
 
-        [HttpGet]
-        public JsonResult VistaDashBoard()
-        {
-            DashBoard objeto = new CN_Reporte().VerDashBoard();
 
-            return Json(new { resultado = objeto }, JsonRequestBehavior.AllowGet);
-        }
-
-
-        // Lista Reporte
         [HttpGet]
         public JsonResult ListaReporte(string fechainicio, string fechafin, string idtransaccion)
         {
@@ -92,7 +85,17 @@ namespace CapaPresentacionPancho.Controllers
         }
 
 
-        // Exportaventas ---> excel
+
+
+
+        [HttpGet]
+        public JsonResult VistaDashBoard()
+        {
+            DashBoard objeto = new CN_Reporte().VerDashBoard();
+
+            return Json(new { resultado = objeto }, JsonRequestBehavior.AllowGet);
+        }
+
 
 
         [HttpPost]
@@ -113,7 +116,7 @@ namespace CapaPresentacionPancho.Controllers
             dt.Columns.Add("Total", typeof(decimal));
             dt.Columns.Add("IdTransaccion", typeof(string));
 
-            // foreach recorrer cada elemento
+
             foreach (Reporte rp in oLista)
             {
                 dt.Rows.Add(new object[] {
@@ -130,26 +133,23 @@ namespace CapaPresentacionPancho.Controllers
 
             dt.TableName = "Datos";
 
-            //variable XLWorkbook para excel del nuget que hemos instalado ( ClosedXml )
-            using (XLWorkbook xd = new XLWorkbook())
+            using (XLWorkbook wb = new XLWorkbook())
             {
-                // hoja para el docuemnto
-                xd.Worksheets.Add(dt);
-                // variable MemoryStream
+
+                wb.Worksheets.Add(dt);
                 using (MemoryStream stream = new MemoryStream())
                 {
-                    xd.SaveAs(stream);
-                    //Configuracion para el excel
-                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "ReporteVentaPancho" + DateTime.Now.ToString() + ".xlsx");
+                    wb.SaveAs(stream);
+                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "ReporteVenta" + DateTime.Now.ToString() + ".xlsx");
 
                 }
             }
 
 
 
-
-
-            // fin de corchetes//
         }
+
+
+
     }
 }

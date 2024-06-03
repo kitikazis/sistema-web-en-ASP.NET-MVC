@@ -12,7 +12,6 @@ namespace CapaDatos
     public class CD_Usuarios
     {
 
-
         public List<Usuario> Listar()
         {
 
@@ -22,49 +21,57 @@ namespace CapaDatos
             {
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
                 {
-                    string query = "select IDUsuario, Nombres, Apellidos, Correo, Clave, Reestablecer, Activo from Usuario";
+
+                    string query = "select IdUsuario,Nombres,Apellidos,Correo,Clave,Reestablecer,Activo from USUARIO";
 
                     SqlCommand cmd = new SqlCommand(query, oconexion);
                     cmd.CommandType = CommandType.Text;
+
                     oconexion.Open();
+
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {
 
-                            lista.Add(new Usuario()
-                            {
-                                IDUsuario = Convert.ToInt32(dr["IDUsuario"]),
-                                Nombres = dr["Nombres"].ToString(),
-                                Apellidos = dr["Apellidos"].ToString(),
-                                Correo = dr["Correo"].ToString(),
-                                Clave = dr["Clave"].ToString(),
-                                Reestablecer = Convert.ToBoolean(dr["Reestablecer"]),
-                                Activo = Convert.ToBoolean(dr["Activo"])
-                            });
+                            lista.Add(
+                                new Usuario()
+                                {
+                                    IdUsuario = Convert.ToInt32(dr["IdUsuario"]),
+                                    Nombres = dr["Nombres"].ToString(),
+                                    Apellidos = dr["Apellidos"].ToString(),
+                                    Correo = dr["Correo"].ToString(),
+                                    Clave = dr["Clave"].ToString(),
+                                    Reestablecer = Convert.ToBoolean(dr["Reestablecer"]),
+                                    Activo = Convert.ToBoolean(dr["Activo"])
+                                }
 
+                                );
                         }
                     }
                 }
+
             }
-
-
             catch
             {
                 lista = new List<Usuario>();
+
             }
 
-            return lista;
-        }
 
-        //registrar
+            return lista;
+
+
+        }
 
         public int Registrar(Usuario obj, out string Mensaje)
         {
-            int IDAutogenerado = 0;
+            int idautogenerado = 0;
+
             Mensaje = string.Empty;
             try
             {
+
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
                 {
                     SqlCommand cmd = new SqlCommand("sp_RegistrarUsuario", oconexion);
@@ -81,24 +88,19 @@ namespace CapaDatos
 
                     cmd.ExecuteNonQuery();
 
-                    IDAutogenerado = Convert.ToInt32(cmd.Parameters["Resultado"].Value);
+                    idautogenerado = Convert.ToInt32(cmd.Parameters["Resultado"].Value);
                     Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
                 }
             }
             catch (Exception ex)
             {
-                IDAutogenerado = 0;
+                idautogenerado = 0;
                 Mensaje = ex.Message;
             }
-            return IDAutogenerado;
-
-
-
-
+            return idautogenerado;
         }
 
 
-        //editar usuario
         public bool Editar(Usuario obj, out string Mensaje)
         {
             bool resultado = false;
@@ -108,12 +110,12 @@ namespace CapaDatos
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
                 {
                     SqlCommand cmd = new SqlCommand("sp_EditarUsuario", oconexion);
-                    cmd.Parameters.AddWithValue("IDUsuario", obj.IDUsuario);
+                    cmd.Parameters.AddWithValue("IdUsuario", obj.IdUsuario);
                     cmd.Parameters.AddWithValue("Nombres", obj.Nombres);
                     cmd.Parameters.AddWithValue("Apellidos", obj.Apellidos);
                     cmd.Parameters.AddWithValue("Correo", obj.Correo);
                     cmd.Parameters.AddWithValue("Activo", obj.Activo);
-                    cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("Mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -124,6 +126,7 @@ namespace CapaDatos
                     resultado = Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
                     Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
                 }
+
             }
             catch (Exception ex)
             {
@@ -131,11 +134,9 @@ namespace CapaDatos
                 Mensaje = ex.Message;
             }
             return resultado;
-
         }
 
 
-        //Eliminar usuarios
         public bool Eliminar(int id, out string Mensaje)
         {
             bool resultado = false;
@@ -144,10 +145,9 @@ namespace CapaDatos
             {
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
                 {
-                    SqlCommand cmd = new SqlCommand("delete top (1) from usuario where IDUsuario = @id", oconexion);
-                    cmd.Parameters.AddWithValue("@id",id);
-                 cmd.CommandType= CommandType.Text;
-
+                    SqlCommand cmd = new SqlCommand("delete top (1) from usuario where IdUsuario = @id", oconexion);
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.CommandType = CommandType.Text;
                     oconexion.Open();
                     resultado = cmd.ExecuteNonQuery() > 0 ? true : false;
                 }
@@ -158,13 +158,8 @@ namespace CapaDatos
                 Mensaje = ex.Message;
             }
             return resultado;
-
         }
 
-
-
-
-        //cambiar clave del usuario
         public bool CambiarClave(int idusuario, string nuevaclave, out string Mensaje)
         {
             bool resultado = false;
@@ -189,7 +184,7 @@ namespace CapaDatos
             return resultado;
         }
 
-        // reestablecer contrañse del usuarios
+
         public bool ReestablecerClave(int idusuario, string clave, out string Mensaje)
         {
             bool resultado = false;
@@ -216,12 +211,5 @@ namespace CapaDatos
 
 
 
-
-
     }
-
 }
-
-
-
- 

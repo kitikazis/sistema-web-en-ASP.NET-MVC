@@ -7,7 +7,7 @@ using System.Threading;
 using System.IO;
 using Firebase.Auth;
 using Firebase.Storage;
-using Firebase.Auth.Providers;
+
 
 
 namespace CapaNegocio

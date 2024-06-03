@@ -9,12 +9,8 @@
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
-
-
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="data:image/@Html.DisplayTextFor(m => m.Extension);base64,@Html.DisplayTextFor(m=> m.Base64)" alt="no cargo la imagen" /></div>
-
-
-
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="data:image/@Html.DisplayTextFor(m => m.Extension);base64,@Html.DisplayTextFor(m=> m.Base64)" alt="..." /></div>
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="@Html.DisplayTextFor(m => m.RutaImagen)" alt="..." /></div>
             <div class="col-md-6">
                 <div class="small mb-1">Marca: @Html.DisplayTextFor(m => m.oMarca.Descripcion)</div>
                 <h1 class="display-5 fw-bolder">@Html.DisplayTextFor(m => m.Nombre)</h1>
@@ -33,7 +29,7 @@
                     @if (Session["Cliente"] != null)
                     {
 
-                        <button class="btn btn-success agregarcarrito flex-shink-0 w-50" type="button" data-idproducto="@Html.DisplayTextFor(m => m.IDProducto)">
+                        <button class="btn btn-success agregarcarrito flex-shink-0 w-50" type="button" data-idproducto="@Html.DisplayTextFor(m => m.IdProducto)">
                             <i class="fas fa-cart-plus"></i> Agregar al carrito
                         </button>
                     }
@@ -52,7 +48,46 @@
 
     <script>
 
-       
+         $(document).on("click", "button.agregarcarrito", function () {
+
+            console.log($(this).data("idproducto"))
+
+            jQuery.ajax({
+                url: '@Url.Action("AgregarCarrito", "Tienda")',
+                type: "POST",
+                data: JSON.stringify({ idproducto: $(this).data("idproducto") }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (data.respuesta) {
+
+                        MostrarCantidadCarrito();
+
+                        @*swal({
+                            title: "Agregado al carrito",
+                            text: "¿Desea ir al carrito?",
+                            type: "success",
+                            showCancelButton: true,
+                            confirmButtonClass: "btn-primary",
+                            confirmButtonText: "Si",
+                            cancelButtonText: "No",
+                            closeOnConfirm: true
+                        }, function () {
+
+                            window.location.href = '@Url.Action("Carrito","Tienda")'
+
+                        })*@
+                        swal("", "Agregado al carrito", "success");
+
+                    } else {
+                        swal("", data.mensaje, "warning");
+                    }
+                }
+
+            });
+
+        })
 
     </script>
 

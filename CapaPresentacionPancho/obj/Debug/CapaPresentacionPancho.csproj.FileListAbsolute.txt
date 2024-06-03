@@ -206,3 +206,6 @@ C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\Cap
 C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaPresentacionPancho\bin\System.Memory.xml
 C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaPresentacionPancho\bin\System.Numerics.Vectors.xml
 C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaPresentacionPancho\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaPresentacionPancho\bin\Firebase.Auth.dll
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaPresentacionPancho\bin\Firebase.Storage.dll
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaPresentacionPancho\bin\CapaNegocio.dll.config

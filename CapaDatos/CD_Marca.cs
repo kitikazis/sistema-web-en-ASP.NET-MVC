@@ -12,7 +12,7 @@ namespace CapaDatos
 {
     public class CD_Marca
     {
-        //Listar Marca
+
         public List<Marca> Listar()
         {
 
@@ -36,7 +36,7 @@ namespace CapaDatos
                         {
                             lista.Add(new Marca()
                             {
-                                IDMarca = Convert.ToInt32(dr["IdMarca"]),
+                                IdMarca = Convert.ToInt32(dr["IdMarca"]),
                                 Descripcion = dr["Descripcion"].ToString(),
                                 Activo = Convert.ToBoolean(dr["Activo"])
                             });
@@ -53,14 +53,15 @@ namespace CapaDatos
         }
 
 
-        //registrar marca
 
         public int Registrar(Marca obj, out string Mensaje)
         {
-            int IDAutogenerado = 0;
+            int idautogenerado = 0;
+
             Mensaje = string.Empty;
             try
             {
+
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
                 {
                     SqlCommand cmd = new SqlCommand("sp_RegistrarMarca", oconexion);
@@ -74,20 +75,19 @@ namespace CapaDatos
 
                     cmd.ExecuteNonQuery();
 
-                    IDAutogenerado = Convert.ToInt32(cmd.Parameters["Resultado"].Value);
+                    idautogenerado = Convert.ToInt32(cmd.Parameters["Resultado"].Value);
                     Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
                 }
             }
             catch (Exception ex)
             {
-                IDAutogenerado = 0;
+                idautogenerado = 0;
                 Mensaje = ex.Message;
             }
-            return IDAutogenerado;
-
+            return idautogenerado;
         }
 
-        //editar Marca
+
         public bool Editar(Marca obj, out string Mensaje)
         {
             bool resultado = false;
@@ -97,10 +97,10 @@ namespace CapaDatos
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
                 {
                     SqlCommand cmd = new SqlCommand("sp_EditarMarca", oconexion);
-                    cmd.Parameters.AddWithValue("IDMarca", obj.IDMarca);
+                    cmd.Parameters.AddWithValue("IdMarca", obj.IdMarca);
                     cmd.Parameters.AddWithValue("Descripcion", obj.Descripcion);
                     cmd.Parameters.AddWithValue("Activo", obj.Activo);
-                    cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("Mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -111,6 +111,7 @@ namespace CapaDatos
                     resultado = Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
                     Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
                 }
+
             }
             catch (Exception ex)
             {
@@ -118,10 +119,10 @@ namespace CapaDatos
                 Mensaje = ex.Message;
             }
             return resultado;
-
         }
 
-        //elimianr Marca
+
+
 
         public bool Eliminar(int id, out string Mensaje)
         {
@@ -132,10 +133,8 @@ namespace CapaDatos
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
                 {
                     SqlCommand cmd = new SqlCommand("sp_EliminarMarca", oconexion);
-                    cmd.Parameters.AddWithValue("IDMarca", id);
-
-
-                    cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    cmd.Parameters.AddWithValue("IdMarca", id);
+                    cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("Mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -146,6 +145,7 @@ namespace CapaDatos
                     resultado = Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
                     Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
                 }
+
             }
             catch (Exception ex)
             {
@@ -153,10 +153,10 @@ namespace CapaDatos
                 Mensaje = ex.Message;
             }
             return resultado;
-
         }
 
-        // marca x categoria
+
+
         public List<Marca> ListarMarcaporCategoria(int idcategoria)
         {
 
@@ -186,7 +186,7 @@ namespace CapaDatos
                         {
                             lista.Add(new Marca()
                             {
-                                IDMarca = Convert.ToInt32(dr["IdMarca"]),
+                                IdMarca = Convert.ToInt32(dr["IdMarca"]),
                                 Descripcion = dr["Descripcion"].ToString()
                             });
                         }
@@ -202,11 +202,6 @@ namespace CapaDatos
         }
 
 
-        //
 
     }
 }
-
-
-
-

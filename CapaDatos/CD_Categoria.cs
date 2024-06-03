@@ -11,7 +11,9 @@ namespace CapaDatos
 {
     public class CD_Categoria
     {
-        //Listar categoria
+
+
+
         public List<Categoria> Listar()
         {
 
@@ -21,46 +23,46 @@ namespace CapaDatos
             {
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
                 {
-                    string query = "SELECT IDCategoria, Descripcion, Activo FROM Categoria";
+
+                    string query = "SELECT IdCategoria,Descripcion,Activo FROM CATEGORIA";
 
                     SqlCommand cmd = new SqlCommand(query, oconexion);
                     cmd.CommandType = CommandType.Text;
+
                     oconexion.Open();
+
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {
-
                             lista.Add(new Categoria()
                             {
-                                IDCategoria = Convert.ToInt32(dr["IDCategoria"]),
-             Descripcion = dr["Descripcion"].ToString(),
+                                IdCategoria = Convert.ToInt32(dr["IdCategoria"]),
+                                Descripcion = dr["Descripcion"].ToString(),
                                 Activo = Convert.ToBoolean(dr["Activo"])
                             });
-
                         }
                     }
                 }
             }
-
-
             catch
             {
                 lista = new List<Categoria>();
-            }
 
+            }
             return lista;
         }
 
 
-        //registrar Categoria
 
         public int Registrar(Categoria obj, out string Mensaje)
         {
-            int IDAutogenerado = 0;
+            int idautogenerado = 0;
+
             Mensaje = string.Empty;
             try
             {
+
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
                 {
                     SqlCommand cmd = new SqlCommand("sp_RegistrarCategoria", oconexion);
@@ -74,24 +76,18 @@ namespace CapaDatos
 
                     cmd.ExecuteNonQuery();
 
-                    IDAutogenerado = Convert.ToInt32(cmd.Parameters["Resultado"].Value);
+                    idautogenerado = Convert.ToInt32(cmd.Parameters["Resultado"].Value);
                     Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
                 }
             }
             catch (Exception ex)
             {
-                IDAutogenerado = 0;
+                idautogenerado = 0;
                 Mensaje = ex.Message;
             }
-            return IDAutogenerado;
-          
-
-
-
+            return idautogenerado;
         }
 
-
-        //editar usuario
         public bool Editar(Categoria obj, out string Mensaje)
         {
             bool resultado = false;
@@ -101,11 +97,10 @@ namespace CapaDatos
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
                 {
                     SqlCommand cmd = new SqlCommand("sp_EditarCategoria", oconexion);
-                    cmd.Parameters.AddWithValue("IDCategoria", obj.IDCategoria);
+                    cmd.Parameters.AddWithValue("IdCategoria", obj.IdCategoria);
                     cmd.Parameters.AddWithValue("Descripcion", obj.Descripcion);
-             
                     cmd.Parameters.AddWithValue("Activo", obj.Activo);
-                    cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("Mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -116,6 +111,7 @@ namespace CapaDatos
                     resultado = Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
                     Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
                 }
+
             }
             catch (Exception ex)
             {
@@ -123,10 +119,9 @@ namespace CapaDatos
                 Mensaje = ex.Message;
             }
             return resultado;
-
         }
 
-        public bool Eliminar( int id, out string Mensaje)
+        public bool Eliminar(int id, out string Mensaje)
         {
             bool resultado = false;
             Mensaje = string.Empty;
@@ -135,10 +130,8 @@ namespace CapaDatos
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
                 {
                     SqlCommand cmd = new SqlCommand("sp_EliminarCategoria", oconexion);
-                    cmd.Parameters.AddWithValue("IDCategoria", id);
-              
-     
-                    cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    cmd.Parameters.AddWithValue("IdCategoria", id);
+                    cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("Mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -149,6 +142,7 @@ namespace CapaDatos
                     resultado = Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
                     Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
                 }
+
             }
             catch (Exception ex)
             {
@@ -156,7 +150,6 @@ namespace CapaDatos
                 Mensaje = ex.Message;
             }
             return resultado;
-
         }
 
 
