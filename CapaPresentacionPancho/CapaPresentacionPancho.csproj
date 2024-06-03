@@ -566,6 +566,7 @@
     <Content Include="Views\Mantenedor\Marca.cshtml" />
     <Content Include="Views\Mantenedor\Producto.cshtml" />
     <Content Include="Views\Acceso\Index.cshtml" />
+    <Content Include="Views\Acceso\CambiarClave.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
