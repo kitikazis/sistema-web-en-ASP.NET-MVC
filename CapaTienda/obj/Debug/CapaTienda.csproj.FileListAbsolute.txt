@@ -182,3 +182,6 @@ C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\Cap
 C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaTienda\obj\Debug\CapaTienda.csproj.Up2Date
 C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaTienda\obj\Debug\CapaTienda.dll
 C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaTienda\obj\Debug\CapaTienda.pdb
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaTienda\bin\Firebase.Auth.dll
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaTienda\bin\Firebase.Storage.dll
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaTienda\bin\CapaNegocio.dll.config

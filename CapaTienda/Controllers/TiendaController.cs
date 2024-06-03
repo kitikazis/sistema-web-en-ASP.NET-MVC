@@ -32,7 +32,7 @@ namespace CapaTienda.Controllers
             bool conversion;
 
 
-            oProducto = new CN_Producto().Listar().Where(p => p.IDProducto == idproducto).FirstOrDefault();
+            oProducto = new CN_Producto().Listar().Where(p => p.IdProducto == idproducto).FirstOrDefault();
 
 
             if (oProducto != null)
@@ -93,7 +93,7 @@ namespace CapaTienda.Controllers
 
             lista = new CN_Producto().ObtenerProductos(idmarca, idcategoria, nroPagina, 8, out _TotalRegistros, out _TotalPaginas).Select(p => new Producto()
             {
-                IDProducto = p.IDProducto,
+                IdProducto = p.IdProducto,
                 Nombre = p.Nombre,
                 Descripcion = p.Descripcion,
                 oMarca = p.oMarca,
@@ -119,7 +119,7 @@ namespace CapaTienda.Controllers
         public JsonResult AgregarCarrito(int idproducto)
         {
 
-            int idcliente = ((Cliente)Session["Cliente"]).IDCliente;
+            int idcliente = ((Cliente)Session["Cliente"]).IdCliente;
 
             bool existe = new CN_Carrito().ExisteCarrito(idcliente, idproducto);
 
@@ -148,7 +148,7 @@ namespace CapaTienda.Controllers
         public JsonResult CantidadEnCarrito()
         {
 
-            int idcliente = ((Cliente)Session["Cliente"]).IDCliente;
+            int idcliente = ((Cliente)Session["Cliente"]).IdCliente;
             int cantidad = new CN_Carrito().CantidadEnCarrito(idcliente);
             return Json(new { cantidad = cantidad }, JsonRequestBehavior.AllowGet);
         }
@@ -159,7 +159,7 @@ namespace CapaTienda.Controllers
         public JsonResult ListarProductosCarrito()
         {
 
-            int idcliente = ((Cliente)Session["Cliente"]).IDCliente;
+            int idcliente = ((Cliente)Session["Cliente"]).IdCliente;
 
             List<Carrito> oLista = new List<Carrito>();
 
@@ -169,7 +169,7 @@ namespace CapaTienda.Controllers
             {
                 oProducto = new Producto()
                 {
-                    IDProducto = oc.oProducto.IDProducto,
+                    IdProducto = oc.oProducto.IdProducto,
                     Nombre = oc.oProducto.Nombre,
                     oMarca = oc.oProducto.oMarca,
                     Precio = oc.oProducto.Precio,
@@ -190,7 +190,7 @@ namespace CapaTienda.Controllers
         public JsonResult OperacionCarrito(int idproducto, bool sumar)
         {
 
-            int idcliente = ((Cliente)Session["Cliente"]).IDCliente;
+            int idcliente = ((Cliente)Session["Cliente"]).IdCliente;
 
 
             bool respuesta = false;
@@ -210,7 +210,7 @@ namespace CapaTienda.Controllers
         public JsonResult EliminarCarrito(int idproducto)
         {
 
-            int idcliente = ((Cliente)Session["Cliente"]).IDCliente;
+            int idcliente = ((Cliente)Session["Cliente"]).IdCliente;
 
             bool respuesta = false;
 
@@ -298,7 +298,7 @@ namespace CapaTienda.Controllers
                 });
 
                 detalle_venta.Rows.Add(new object[] {
-                    oCarrito.oProducto.IDProducto,
+                    oCarrito.oProducto.IdProducto,
                     oCarrito.Cantidad,
                     subtotal
                 });
@@ -336,8 +336,9 @@ namespace CapaTienda.Controllers
                     brand_name = "MiTienda.com",
                     landing_page = "NO_PREFERENCE",
                     user_action = "PAY_NOW",
+                    //confiruado segun la url local o nube
                     return_url = "https://localhost:44323/Tienda/PagoEfectuado",
-                    cancel_url = "https://localhost:44323//Tienda/Carrito"
+                    cancel_url = "https://localhost:44323/Tienda/Carrito"
 
                 }
 
@@ -347,7 +348,7 @@ namespace CapaTienda.Controllers
 
 
             oVenta.MontoTotal = total;
-            oVenta.IDCliente = ((Cliente)Session["Cliente"]).IDCliente;
+            oVenta.IdCliente = ((Cliente)Session["Cliente"]).IdCliente;
 
             TempData["Venta"] = oVenta;
             TempData["DetalleVenta"] = detalle_venta;
@@ -364,7 +365,8 @@ namespace CapaTienda.Controllers
 
             return Json(response_paypal, JsonRequestBehavior.AllowGet);
         }
-        [Validar]
+
+        [ValidarSession]
         [Authorize]
         public async Task<ActionResult> PagoEfectuado()
         {
@@ -385,14 +387,14 @@ namespace CapaTienda.Controllers
 
                 DataTable detalle_venta = (DataTable)TempData["DetalleVenta"];
 
-                oVenta.IDTransaccion = response_paypal.Response.purchase_units[0].payments.captures[0].id;
+                oVenta.IdTransaccion = response_paypal.Response.purchase_units[0].payments.captures[0].id;
 
                 string mensaje = string.Empty;
 
                 bool respuesta = new CN_Venta().Registrar(oVenta, detalle_venta, out mensaje);
 
 
-                ViewData["IdTransaccion"] = oVenta.IDTransaccion;
+                ViewData["IdTransaccion"] = oVenta.IdTransaccion;
 
             }
 
@@ -405,7 +407,7 @@ namespace CapaTienda.Controllers
         public ActionResult MisCompras()
         {
 
-            int idcliente = ((Cliente)Session["Cliente"]).IDCliente;
+            int idcliente = ((Cliente)Session["Cliente"]).IdCliente;
 
             List<DetalleVenta> oLista = new List<DetalleVenta>();
 
@@ -424,7 +426,7 @@ namespace CapaTienda.Controllers
                 },
                 Cantidad = oc.Cantidad,
                 Total = oc.Total,
-                IDTransaccion = oc.IDTransaccion
+                IdTransaccion = oc.IdTransaccion
             }).ToList();
 
             return View(oLista);

@@ -81,7 +81,7 @@ namespace CapaTienda.Controllers
 
                 if (oCliente.Reestablecer)
                 {
-                    TempData["IdCliente"] = oCliente.IDCliente;
+                    TempData["IdCliente"] = oCliente.IdCliente;
                     return RedirectToAction("CambiarClave", "Acceso");
                 }
                 else
@@ -118,7 +118,7 @@ namespace CapaTienda.Controllers
 
 
             string mensaje = string.Empty;
-            bool respuesta = new CN_Cliente().ReestablecerClave(cliente.IDCliente, correo, out mensaje);
+            bool respuesta = new CN_Cliente().ReestablecerClave(cliente.IdCliente, correo, out mensaje);
 
             if (respuesta)
             {
@@ -143,7 +143,7 @@ namespace CapaTienda.Controllers
 
             Cliente oCliente = new Cliente();
 
-            oCliente = new CN_Cliente().Listar().Where(u => u.IDCliente == int.Parse(idcliente)).FirstOrDefault();
+            oCliente = new CN_Cliente().Listar().Where(u => u.IdCliente == int.Parse(idcliente)).FirstOrDefault();
 
             if (oCliente.Clave != CN_Recursos.ConvertirSha256(claveactual))
             {
