@@ -58,6 +58,7 @@ namespace CapaPresentacionPancho.Controllers
                         return RedirectToAction("CambiarClave");
                     }
 
+                    //cuck
                     FormsAuthentication.SetAuthCookie(oUsuario.Correo, false);
 
                     ViewBag.Error = null;
