@@ -1,5 +1,5 @@
 ﻿using CapaEntidad;
-using CapaEntidad.Paypal;
+
 using CapaNegocio;
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using CapaTienda.Filter;
+using CapaEntidad.Paypal;
 
 namespace CapaTienda.Controllers
 {
@@ -254,7 +256,7 @@ namespace CapaTienda.Controllers
             return Json(new { lista = oLista }, JsonRequestBehavior.AllowGet);
         }
 
-       // [ValidarSession]
+        [ValidarSession]
         [Authorize]
         public ActionResult Carrito()
         {
@@ -362,8 +364,7 @@ namespace CapaTienda.Controllers
 
             return Json(response_paypal, JsonRequestBehavior.AllowGet);
         }
-      
-        [ValidarSession]
+        [Validar]
         [Authorize]
         public async Task<ActionResult> PagoEfectuado()
         {

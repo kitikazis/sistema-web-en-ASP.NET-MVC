@@ -200,7 +200,6 @@
     <Compile Include="Controllers\AccesoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MantenedorController.cs" />
-    <Compile Include="Filter\ValidarSessionAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

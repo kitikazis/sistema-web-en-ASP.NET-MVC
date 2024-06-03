@@ -9,14 +9,18 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+//finalizado
 
 namespace CapaPresentacionPancho.Controllers
 {
     [Authorize]
     public class MantenedorController : Controller
     {
+        private CN_FireBase cnfirebase = new CN_FireBase();
+
         // GET: Mantenedor
         public ActionResult Categoria()
         {
@@ -31,60 +35,59 @@ namespace CapaPresentacionPancho.Controllers
             return View();
         }
 
-        // -- CATEGORIA-- //
+
+        // ++++++++++++++++ CATEGORIA ++++++++++++++++++++
+
         #region CATEGORIA
         [HttpGet]
         public JsonResult ListarCategorias()
         {
+
             List<Categoria> oLista = new List<Categoria>();
             oLista = new CN_Categoria().Listar();
             return Json(new { data = oLista }, JsonRequestBehavior.AllowGet);
+
         }
-        //xd
-        //guardar categoria
+
+
         [HttpPost]
         public JsonResult GuardarCategoria(Categoria objeto)
         {
             object resultado;
             string mensaje = string.Empty;
+
             if (objeto.IDCategoria == 0)
             {
+
                 resultado = new CN_Categoria().Registrar(objeto, out mensaje);
             }
             else
             {
                 resultado = new CN_Categoria().Editar(objeto, out mensaje);
+
             }
 
             return Json(new { resultado = resultado, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
-
-
         }
 
 
-        //Eliminar Categoria
+
         [HttpPost]
         public JsonResult EliminarCategoria(int id)
         {
-            //punto depuracion 52
             bool respuesta = false;
             string mensaje = string.Empty;
 
             respuesta = new CN_Categoria().Eliminar(id, out mensaje);
 
-
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
-
-
-
         }
 
         #endregion
 
+        // ++++++++++++++++ MARCA ++++++++++++++++++++
 
-
-        // -- Marca -- //
-        #region Marca
+        #region MARCA
         [HttpGet]
         public JsonResult ListarMarca()
         {
@@ -93,12 +96,12 @@ namespace CapaPresentacionPancho.Controllers
             return Json(new { data = oLista }, JsonRequestBehavior.AllowGet);
         }
 
-        //guardar categoria
         [HttpPost]
-        public JsonResult GuardaMarca(Marca objeto)
+        public JsonResult GuardarMarca(Marca objeto)
         {
             object resultado;
             string mensaje = string.Empty;
+
             if (objeto.IDMarca == 0)
             {
                 resultado = new CN_Marca().Registrar(objeto, out mensaje);
@@ -109,34 +112,23 @@ namespace CapaPresentacionPancho.Controllers
             }
 
             return Json(new { resultado = resultado, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
-
-
         }
 
-
-        //Eliminar Categoria
         [HttpPost]
         public JsonResult EliminarMarca(int id)
         {
-            //punto depuracion 52
             bool respuesta = false;
             string mensaje = string.Empty;
 
             respuesta = new CN_Marca().Eliminar(id, out mensaje);
 
-
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
-
-
-
         }
-
         #endregion
 
 
-        // -- PRODCUTO -- //
-        #region Producto
-        //listar
+        // ++++++++++++++++ PRODUCTO ++++++++++++++++++++
+        #region PRODUCTO
         [HttpGet]
         public JsonResult ListarProducto()
         {
@@ -145,9 +137,10 @@ namespace CapaPresentacionPancho.Controllers
             return Json(new { data = oLista }, JsonRequestBehavior.AllowGet);
         }
 
-        //Guardar Producto
+
+
         [HttpPost]
-        public JsonResult GuardarProducto(string objeto, HttpPostedFileBase archivoImagen)
+        public async Task<JsonResult> GuardarProducto(string objeto, HttpPostedFileBase archivoImagen)
         {
 
             string mensaje = string.Empty;
@@ -161,23 +154,23 @@ namespace CapaPresentacionPancho.Controllers
 
             if (decimal.TryParse(oProducto.PrecioTexto, NumberStyles.AllowDecimalPoint, new CultureInfo("es-PE"), out precio))
             {
-                oProducto.Precio = precio;
 
+                oProducto.Precio = precio;
             }
             else
-
             {
-                return Json(new { operacionExtosa = false, mensaje = "El formtado del precio debe ser ##.##" }, JsonRequestBehavior.AllowGet);
+
+                return Json(new { operacionExitosa = false, mensaje = "El formato del precio debe ser ##.##" }, JsonRequestBehavior.AllowGet);
             }
 
 
-
-            if (oProducto.IDProducto == 0)
+            if (oProducto.IdProducto == 0)
             {
-                int IDProductoGenerado = new CN_Producto().Registrar(oProducto, out mensaje);
-                if (IDProductoGenerado != 0)
+                int idProductoGenerado = new CN_Producto().Registrar(oProducto, out mensaje);
+
+                if (idProductoGenerado != 0)
                 {
-                    oProducto.IDProducto = IDProductoGenerado;
+                    oProducto.IdProducto = idProductoGenerado;
                 }
                 else
                 {
@@ -187,80 +180,95 @@ namespace CapaPresentacionPancho.Controllers
             else
             {
                 operacion_exitosa = new CN_Producto().Editar(oProducto, out mensaje);
-
             }
+
+
             if (operacion_exitosa)
             {
+
                 if (archivoImagen != null)
                 {
-                    string ruta_guardar = ConfigurationManager.AppSettings["ServidorFotos"];
-                    string extension = Path.GetExtension(archivoImagen.FileName);
-                    string nombre_imagen = string.Concat(oProducto.IDProducto.ToString(), extension);
-                    try
-                    {
-                        archivoImagen.SaveAs(Path.Combine(ruta_guardar, nombre_imagen));
 
-                    }
-                    catch (Exception ex)
+                    //string ruta_guardar = ConfigurationManager.AppSettings["ServidorFotos"];
+
+                    string extension = Path.GetExtension(archivoImagen.FileName);
+                    string nombre_imagen = string.Concat(oProducto.IdProducto.ToString(), extension);
+
+                    string ruta_guardar = await cnfirebase.SubirStorage(archivoImagen.InputStream, nombre_imagen);
+
+                    //try
+                    //{
+                    //    archivoImagen.SaveAs(Path.Combine(ruta_guardar, nombre_imagen));
+
+                    //}
+                    //catch (Exception ex) {
+                    //    string msg = ex.Message;
+                    //    guardar_imagen_exito = false;
+                    //}
+
+                    guardar_imagen_exito = ruta_guardar != "" ? true : false;
+
+                    if (guardar_imagen_exito)
                     {
-                        string msg = ex.Message;
-                        guardar_imagen_exito = false;
-                    }
-                    if (!guardar_imagen_exito)
-                    {
+
                         oProducto.RutaImagen = ruta_guardar;
                         oProducto.NombreImagen = nombre_imagen;
                         bool rspta = new CN_Producto().GuardarDatosImagen(oProducto, out mensaje);
                     }
                     else
                     {
-                        mensaje = "Se guardo el prodcuto pero hubo problemas con la imagen";
+
+                        mensaje = "Se guardaro el producto pero hubo problemas con la imagen";
                     }
+
+
                 }
             }
-            return Json(new { operacionExtosa = operacion_exitosa, IDGenerado = oProducto.IDProducto, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
 
 
+
+
+            return Json(new { operacionExitosa = operacion_exitosa, idGenerado = oProducto.IdProducto, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
         }
 
 
         [HttpPost]
         public JsonResult ImagenProducto(int id)
         {
+
             bool conversion;
-            Producto oproducto = new CN_Producto().Listar().Where(p => p.IDProducto == id).FirstOrDefault();
-            string textoBase64 = CN_Recursos.ConvertirBase64(Path.Combine(oproducto.RutaImagen, oproducto.NombreImagen), out conversion);
-            return Json(new
-            {
-                conversion = conversion,
-                textobase64 = textoBase64,
-                extension = Path.GetExtension(oproducto.NombreImagen)
-            },
-            JsonRequestBehavior.AllowGet
-       );
+            Producto oproducto = new CN_Producto().Listar().Where(p => p.IdProducto == id).FirstOrDefault();
+
+            //string textoBase64 = CN_Recursos.ConvertirBase64(Path.Combine(oproducto.RutaImagen,oproducto.NombreImagen), out conversion );
+
+
+            //return Json(new
+            //{
+            //    conversion = conversion,
+            //    textobase64 = textoBase64,
+            //    extension = Path.GetExtension(oproducto.NombreImagen)
+
+            //},
+            // JsonRequestBehavior.AllowGet
+            //);
+
+            return Json(new { ruta = oproducto.RutaImagen }, JsonRequestBehavior.AllowGet);
 
         }
 
-        //Eliminar Producto
+
         [HttpPost]
         public JsonResult EliminarProducto(int id)
         {
-            //punto depuracion 52
             bool respuesta = false;
             string mensaje = string.Empty;
 
-            respuesta = new CN_Categoria().Eliminar(id, out mensaje);
-
+            respuesta = new CN_Producto().Eliminar(id, out mensaje);
 
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
-
-
-
-            #endregion
-
-
-
-
         }
+
+        #endregion
+
     }
 }
