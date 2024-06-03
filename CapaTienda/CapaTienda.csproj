@@ -181,6 +181,9 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Acceso\Index.cshtml" />
+    <Content Include="Views\Acceso\Registrar.cshtml" />
+    <Content Include="Views\Acceso\Reestablecer.cshtml" />
+    <Content Include="Views\Acceso\CambiarClave.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
