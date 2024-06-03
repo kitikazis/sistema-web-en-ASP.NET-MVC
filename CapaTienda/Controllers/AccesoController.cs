@@ -38,7 +38,7 @@ namespace CapaTienda.Controllers
             ViewData["Nombres"] = string.IsNullOrEmpty(objeto.Nombres) ? "" : objeto.Nombres;
             ViewData["Apellidos"] = string.IsNullOrEmpty(objeto.Apellidos) ? "" : objeto.Apellidos;
             ViewData["Correo"] = string.IsNullOrEmpty(objeto.Correo) ? "" : objeto.Correo;
-            // ConfirmarClave --> Entidad -> Clase cliente
+
             if (objeto.Clave != objeto.ConfirmarClave)
             {
 

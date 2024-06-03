@@ -90,7 +90,7 @@ namespace CapaTienda.Controllers
 
             lista = new CN_Producto().ObtenerProductos(idmarca, idcategoria, nroPagina, 8, out _TotalRegistros, out _TotalPaginas).Select(p => new Producto()
             {
-                IDProducto = p.IdProducto,
+                IDProducto = p.IDProducto,
                 Nombre = p.Nombre,
                 Descripcion = p.Descripcion,
                 oMarca = p.oMarca,
@@ -253,7 +253,7 @@ namespace CapaTienda.Controllers
             return Json(new { lista = oLista }, JsonRequestBehavior.AllowGet);
         }
 
-        [ValidarSession]
+       // [ValidarSession]
         [Authorize]
         public ActionResult Carrito()
         {
@@ -361,7 +361,7 @@ namespace CapaTienda.Controllers
 
             return Json(response_paypal, JsonRequestBehavior.AllowGet);
         }
-
+      
         [ValidarSession]
         [Authorize]
         public async Task<ActionResult> PagoEfectuado()

@@ -11,92 +11,115 @@ namespace CapaNegocio
 {
     public class CN_Producto
     {
-        //producto
         private CD_Producto objCapaDato = new CD_Producto();
-
         public List<Producto> Listar()
         {
             return objCapaDato.Listar();
         }
 
-        //registra Marca
+        public List<Producto> ObtenerProductos(int idMarca, int idCategoria, int nroPagina, int obtenerRegistros, out int TotalRegistros, out int TotalPaginas)
+        {
+            return objCapaDato.ObtenerProductos(idMarca, idCategoria, nroPagina, obtenerRegistros, out TotalRegistros, out TotalPaginas);
+
+        }
+
         public int Registrar(Producto obj, out string Mensaje)
         {
+
             Mensaje = string.Empty;
+
 
             if (string.IsNullOrEmpty(obj.Nombre) || string.IsNullOrWhiteSpace(obj.Nombre))
             {
-                Mensaje = "EL nombre del Producto no puede ser vacio";
+                Mensaje = "El nombre del producto no puede ser vacio";
             }
             else if (string.IsNullOrEmpty(obj.Descripcion) || string.IsNullOrWhiteSpace(obj.Descripcion))
             {
-                Mensaje = "La Descripcion de la categoria no puede estar vacia";
+                Mensaje = "La descripcion del producto no puede ser vacio";
             }
             else if (obj.oMarca.IDMarca == 0)
             {
-                Mensaje = "Debe selecciona una marca";
+                Mensaje = "Debe seleccionar una marca";
             }
             else if (obj.oCategoria.IDCategoria == 0)
             {
+                Mensaje = "Debe seleccionar una categoria";
             }
             else if (obj.oCategoria.IDCategoria == 0)
             {
-                Mensaje = "Debe selecionar una Categoria";
-            }
-            else if (obj.oCategoria.IDCategoria == 0)
-            {
-                Mensaje = "Debe selecionar una Categoria";
+                Mensaje = "Debe seleccionar una categoria";
             }
             else if (obj.Precio == 0)
             {
-                Mensaje = "Debe ingresar el stock del producto";
 
+                Mensaje = "Debe ingrear el precio del producto";
             }
+            else if (obj.Stock == 0)
+            {
+
+                Mensaje = "Debe ingrear el stock del producto";
+            }
+
+
 
             if (string.IsNullOrEmpty(Mensaje))
             {
+
                 return objCapaDato.Registrar(obj, out Mensaje);
+
             }
             else
             {
+
                 return 0;
             }
 
 
+
         }
-        //Editar Marca
+
         public bool Editar(Producto obj, out string Mensaje)
         {
+
             Mensaje = string.Empty;
+
+
 
             if (string.IsNullOrEmpty(obj.Nombre) || string.IsNullOrWhiteSpace(obj.Nombre))
             {
-                Mensaje = "El nombre del producto no puede ser vacío.";
+                Mensaje = "El nombre del producto no puede ser vacio";
             }
             else if (string.IsNullOrEmpty(obj.Descripcion) || string.IsNullOrWhiteSpace(obj.Descripcion))
             {
-                Mensaje = "La descripción del producto no puede ser vacía.";
+                Mensaje = "La descripcion del producto no puede ser vacio";
             }
             else if (obj.oMarca.IDMarca == 0)
             {
-                Mensaje = "Debe seleccionar una marca.";
+                Mensaje = "Debe seleccionar una marca";
             }
             else if (obj.oCategoria.IDCategoria == 0)
             {
-                Mensaje = "Debe seleccionar una categoría.";
+                Mensaje = "Debe seleccionar una categoria";
+            }
+            else if (obj.oCategoria.IDCategoria == 0)
+            {
+                Mensaje = "Debe seleccionar una categoria";
             }
             else if (obj.Precio == 0)
             {
-                Mensaje = "Debe ingresar el precio del producto.";
+
+                Mensaje = "Debe ingrear el precio del producto";
             }
             else if (obj.Stock == 0)
             {
-                Mensaje = "Debe ingresar el stock del producto.";
+
+                Mensaje = "Debe ingrear el stock del producto";
             }
 
             if (string.IsNullOrEmpty(Mensaje))
             {
-               return objCapaDato.Editar(obj, out Mensaje);
+
+                return objCapaDato.Editar(obj, out Mensaje);
             }
             else
             {
@@ -104,7 +127,6 @@ namespace CapaNegocio
             }
         }
 
-        //Guardar datos de Imagen
         public bool GuardarDatosImagen(Producto obj, out string Mensaje)
         {
 
@@ -112,25 +134,13 @@ namespace CapaNegocio
         }
 
 
-        //elimianr Marca
+
         public bool Eliminar(int id, out string Mensaje)
         {
             return objCapaDato.Eliminar(id, out Mensaje);
-
         }
+
+
+
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
