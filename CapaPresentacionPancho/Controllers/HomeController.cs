@@ -9,8 +9,11 @@ using ClosedXML.Excel;
 
 namespace CapaPresentacionPancho.Controllers
 {
+    // para activar al authorize -> web config  linea  <authentication 
+    [Authorize]
     public class HomeController : Controller
     {
+      
         public ActionResult Index()
         {
             return View();
