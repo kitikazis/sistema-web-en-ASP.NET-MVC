@@ -16,7 +16,7 @@ using System.Web.Mvc;
 
 namespace CapaPresentacionPancho.Controllers
 {
-    [Authorize]
+ //   [Authorize]
     public class MantenedorController : Controller
     {
         private CN_FireBase cnfirebase = new CN_FireBase();
