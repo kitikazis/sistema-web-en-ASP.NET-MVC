@@ -22,36 +22,36 @@ namespace CapaDatos
             {
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
                 {
-                    string query = "SELECT IDMarca, Descripcion, Activo FROM Marca";
+
+                    string query = "SELECT IdMarca,Descripcion,Activo FROM Marca";
 
                     SqlCommand cmd = new SqlCommand(query, oconexion);
                     cmd.CommandType = CommandType.Text;
+
                     oconexion.Open();
+
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {
-
                             lista.Add(new Marca()
                             {
-                                IDMarca = Convert.ToInt32(dr["IDMarca"]),
+                                IDMarca = Convert.ToInt32(dr["IdMarca"]),
                                 Descripcion = dr["Descripcion"].ToString(),
                                 Activo = Convert.ToBoolean(dr["Activo"])
                             });
-
                         }
                     }
                 }
             }
-
-
             catch
             {
                 lista = new List<Marca>();
-            }
 
+            }
             return lista;
         }
+
 
         //registrar marca
 
@@ -156,8 +156,57 @@ namespace CapaDatos
 
         }
 
+        // marca x categoria
+        public List<Marca> ListarMarcaporCategoria(int idcategoria)
+        {
+
+            List<Marca> lista = new List<Marca>();
+
+            try
+            {
+                using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
+                {
+
+                    StringBuilder sb = new StringBuilder();
+
+                    sb.AppendLine("select distinct m.IdMarca,m.Descripcion from PRODUCTO p");
+                    sb.AppendLine("inner join CATEGORIA c on c.IdCategoria = p.IdCategoria");
+                    sb.AppendLine("inner join MARCA m on m.idMarca = p.idmarca and m.Activo = 1");
+                    sb.AppendLine("where c.IdCategoria = iif(@idcategoria = 0, c.IdCategoria, @idcategoria)");
+
+                    SqlCommand cmd = new SqlCommand(sb.ToString(), oconexion);
+                    cmd.Parameters.AddWithValue("@idcategoria", idcategoria);
+                    cmd.CommandType = CommandType.Text;
+
+                    oconexion.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            lista.Add(new Marca()
+                            {
+                                IDMarca = Convert.ToInt32(dr["IdMarca"]),
+                                Descripcion = dr["Descripcion"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                lista = new List<Marca>();
+
+            }
+            return lista;
+        }
 
 
-        //otra
+        //
+
     }
 }
+
+
+
+

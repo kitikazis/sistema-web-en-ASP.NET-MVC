@@ -12,7 +12,6 @@ namespace CapaNegocio
     {
         //Marca
         private CD_Marca objCapaDato = new CD_Marca();
-
         public List<Marca> Listar()
         {
             return objCapaDato.Listar();
@@ -80,6 +79,20 @@ namespace CapaNegocio
             return objCapaDato.Eliminar(id, out Mensaje);
 
         }
+
+
+
+
+        //listar marca x categoria
+        public List<Marca> ListarMarcaporCategoria(int idcategoria)
+        {
+
+            return objCapaDato.ListarMarcaporCategoria(idcategoria);
+        }
+
+
+
+
 
 
 

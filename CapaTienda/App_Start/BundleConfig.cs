@@ -20,9 +20,31 @@ namespace CapaTienda
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.bundle.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+                    "~/Scripts/fontawesome/all.min.js",
+                    "~/Scripts/loadingoverlay.min.js",
+                    "~/Scripts/fontawesome/all.min.js",
+                    "~/Scripts/sweetalert.js",
+                    "~/Scripts/bootstrap.bundle.js"
+                      
+                      ));
+
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+
+                "~/Content/sweetalert.css",
+
+
+                "~/Content/site.css"
+
+
+
+
+
+
+
+                ));
+
+
         }
     }
 }
