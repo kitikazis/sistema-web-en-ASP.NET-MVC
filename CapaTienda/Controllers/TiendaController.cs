@@ -1,4 +1,5 @@
 ﻿using CapaEntidad;
+using CapaEntidad.Paypal;
 using CapaNegocio;
 using System;
 using System.Collections.Generic;
@@ -333,8 +334,8 @@ namespace CapaTienda.Controllers
                     brand_name = "MiTienda.com",
                     landing_page = "NO_PREFERENCE",
                     user_action = "PAY_NOW",
-                    return_url = "https://localhost:44348/Tienda/PagoEfectuado",
-                    cancel_url = "https://localhost:44348/Tienda/Carrito"
+                    return_url = "https://localhost:44323/Tienda/PagoEfectuado",
+                    cancel_url = "https://localhost:44323//Tienda/Carrito"
 
                 }
 
@@ -383,14 +384,14 @@ namespace CapaTienda.Controllers
 
                 DataTable detalle_venta = (DataTable)TempData["DetalleVenta"];
 
-                oVenta.IdTransaccion = response_paypal.Response.purchase_units[0].payments.captures[0].id;
+                oVenta.IDTransaccion = response_paypal.Response.purchase_units[0].payments.captures[0].id;
 
                 string mensaje = string.Empty;
 
                 bool respuesta = new CN_Venta().Registrar(oVenta, detalle_venta, out mensaje);
 
 
-                ViewData["IdTransaccion"] = oVenta.IdTransaccion;
+                ViewData["IdTransaccion"] = oVenta.IDTransaccion;
 
             }
 
@@ -422,7 +423,7 @@ namespace CapaTienda.Controllers
                 },
                 Cantidad = oc.Cantidad,
                 Total = oc.Total,
-                IDTransaccion = oc.IdTransaccion
+                IDTransaccion = oc.IDTransaccion
             }).ToList();
 
             return View(oLista);

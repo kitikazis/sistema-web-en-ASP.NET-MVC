@@ -232,6 +232,7 @@
     <Content Include="Views\Tienda\DetalleProducto.cshtml" />
     <Content Include="Views\Tienda\Carrito.cshtml" />
     <Content Include="Views\Tienda\PagoEfectuado.cshtml" />
+    <Content Include="Views\Tienda\MisCompras.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
