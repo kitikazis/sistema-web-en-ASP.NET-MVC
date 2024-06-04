@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -10,8 +9,12 @@
     <meta name="viewport" content="width=device-width" />
     <title>Reestablecer</title>
     <link href="~/Content/Site.css" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-primary">
+<body  class="bg-Secondary p-2 text-dark">
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
             <main>
@@ -21,33 +24,26 @@
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header"><h3 class="text-center font-weight-light my-4">Recuperacion de contraseña</h3></div>
                                 <div class="card-body">
-                                    <div class="small mb-3 text-muted">Ingrese su dirección de correo electrónico y le enviaremos su nueva contraseña</div>
+                                    <label class="form-label" for="form2Example1">Ingrese su Correo</label>
 
                                     <form action="@Url.Action("Reestablecer","Acceso")" method="post">
-                                        <div class="form-floating mb-3">
-                                            <input class="form-control" name="correo" type="email" autocomplete="off" />
-                                            <label for="inputEmail">Email</label>
+                                        <!-- Email input -->
+                                        <div data-mdb-input-init class="form-outline mb-4">
+                                            <input class="form-control" name="correo" type="email" id="form2Example1" autocomplete="off" />
+                                            <div class="small mb-3 text-muted">Ingrese su dirección de correo electrónico y le enviaremos su nueva contraseña</div>
+
                                         </div>
-                                        @{
-                                            if (ViewBag.Error != null)
-                                            {
-                                                <div class="form-floating mb-3">
-                                                    <div class="alert alert-danger" role="alert">
-                                                        @ViewBag.Error
-                                                    </div>
-                                                </div>
-                                            }
-                                        }
 
+                                        <!-- Submit button -->
+                                        <button type="submit" class="btn btn-primary btn-block mb-4">Restablecer la contraseña</button>
 
-                                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <a class="small" href="@Url.Action("Index","Acceso")">Regresar al login</a>
-                                            <button class="btn btn-primary" type="submit">Restablecer la contraseña</button>
+                                        <!-- Register buttons -->
+                                        <div class="text-center">
+                                            <p> ¿Tienes cuenta? <a href="@Url.Action("Index","Acceso")"> Iniciar Session</a></p>
+                                        
+                                            
                                         </div>
                                     </form>
-                                </div>
-                                <div class="card-footer text-center py-3">
-                                    @*<div class="small"><a href="register.html">Need an account? Sign up!</a></div>*@
                                 </div>
                             </div>
                         </div>
@@ -63,13 +59,14 @@
                         <div>
                             <a href="#">Privacy Policy</a>
                             &middot;
-                            <a href="#">Terms &amp; XDDDDD</a>
+                            <a href="#">Terms &amp; Conditions</a>
                         </div>
                     </div>
                 </div>
             </footer>
         </div>
     </div>
-    <script src="~/Scripts/bootstrap.bundle.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

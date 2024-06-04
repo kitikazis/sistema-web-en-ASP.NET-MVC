@@ -161,6 +161,8 @@
     <Content Include="Content\sweetalert.css" />
     <Content Include="Content\v4-shims.css" />
     <Content Include="Content\v4-shims.min.css" />
+    <Content Include="Estilos\css\login_tienda.css" />
+    <Content Include="Estilos\css\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -234,6 +236,7 @@
     <Content Include="Views\Tienda\Carrito.cshtml" />
     <Content Include="Views\Tienda\PagoEfectuado.cshtml" />
     <Content Include="Views\Tienda\MisCompras.cshtml" />
+    <Content Include="Views\Shared\eliminar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,17 @@
+.footer-07 {
+    background-color: rgb(18, 18, 18); /* Cambia el color de fondo según tus preferencias */
+    color: #fff; /* Cambia el color del texto según tus preferencias */
+    padding: 1px 0px; /* Ajusta el relleno superior e inferior según sea necesario */
+}
+
+    .footer-07 a {
+        color: #fff; /* Cambia el color de los enlaces según tus preferencias */
+    }
+
+        .footer-07 a:hover {
+            text-decoration: underline; /* Añade subrayado a los enlaces cuando se pasa el ratón sobre ellos */
+        }
+
+.copyright {
+    color :rgba(255, 255, 255, 0.3)
+}
