@@ -10,3 +10,9 @@ C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\Cap
 C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
 C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaEntidad\obj\Debug\CapaEntidad.dll
 C:\Users\luisk\OneDrive\Escritorio\Pancho_Carrito\sistema-web-en-ASP.NET-MVC\CapaEntidad\obj\Debug\CapaEntidad.pdb
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaEntidad\bin\Debug\CapaEntidad.dll
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaEntidad\bin\Debug\CapaEntidad.pdb
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaEntidad\obj\Debug\CapaEntidad.csproj.AssemblyReference.cache
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaEntidad\obj\Debug\CapaEntidad.dll
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaEntidad\obj\Debug\CapaEntidad.pdb

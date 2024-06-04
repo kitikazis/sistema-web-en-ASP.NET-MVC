@@ -9,8 +9,8 @@
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="data:image/@Html.DisplayTextFor(m => m.Extension);base64,@Html.DisplayTextFor(m=> m.Base64)" alt="..." /></div>
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="@Html.DisplayTextFor(m => m.RutaImagen)" alt="..." /></div>
+
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="@Html.DisplayTextFor(m => m.RutaImagen)" /></div>
             <div class="col-md-6">
                 <div class="small mb-1">Marca: @Html.DisplayTextFor(m => m.oMarca.Descripcion)</div>
                 <h1 class="display-5 fw-bolder">@Html.DisplayTextFor(m => m.Nombre)</h1>
@@ -18,6 +18,8 @@
                     @*<span class="text-decoration-line-through">$45.00</span>*@
                     <span>@Html.DisplayTextFor(m => m.Precio) USD</span>
                 </div>
+
+                <div class="fs-4 mb-1">Descripcion: </div>
                 <p class="lead">@Html.DisplayTextFor(m => m.Descripcion)</p>
                 <div class="d-flex">
 
