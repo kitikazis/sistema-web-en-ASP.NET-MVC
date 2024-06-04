@@ -1,4 +1,5 @@
-﻿using CapaEntidad;
+﻿
+using CapaEntidad;
 using CapaNegocio;
 using Newtonsoft.Json;
 using System;
