@@ -1,0 +1,9 @@
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaDatos\bin\Release\CapaDatos.dll
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaDatos\bin\Release\CapaDatos.pdb
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaDatos\bin\Release\CapaEntidad.dll
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaDatos\bin\Release\CapaEntidad.pdb
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaDatos\obj\Release\CapaDatos.csproj.AssemblyReference.cache
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaDatos\obj\Release\CapaDatos.csproj.CoreCompileInputs.cache
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaDatos\obj\Release\CapaDatos.csproj.Up2Date
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaDatos\obj\Release\CapaDatos.dll
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaDatos\obj\Release\CapaDatos.pdb

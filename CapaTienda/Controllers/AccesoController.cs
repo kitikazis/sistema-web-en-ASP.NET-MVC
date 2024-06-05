@@ -67,18 +67,21 @@ namespace CapaTienda.Controllers
         {
             Cliente oCliente = null;
 
-            oCliente = new CN_Cliente().Listar().Where(item => item.Correo == correo && item.Clave == CN_Recursos.ConvertirSha256(clave)).FirstOrDefault();
+            // Convertir el correo y la clave a minúsculas antes de comparar
+            string correoLower = correo.ToLower();
+            string claveHashed = CN_Recursos.ConvertirSha256(clave);
 
+            oCliente = new CN_Cliente().Listar()
+                .Where(item => item.Correo.ToLower() == correoLower && item.Clave == claveHashed)
+                .FirstOrDefault();
 
             if (oCliente == null)
             {
                 ViewBag.Error = "Correo o contraseña no son correctas";
                 return View();
-
             }
             else
             {
-
                 if (oCliente.Reestablecer)
                 {
                     TempData["IdCliente"] = oCliente.IdCliente;
@@ -86,17 +89,12 @@ namespace CapaTienda.Controllers
                 }
                 else
                 {
-
                     FormsAuthentication.SetAuthCookie(oCliente.Correo, false);
-
                     Session["Cliente"] = oCliente;
 
                     ViewBag.Error = null;
                     return RedirectToAction("Index", "Tienda");
-
-
                 }
-
             }
         }
 

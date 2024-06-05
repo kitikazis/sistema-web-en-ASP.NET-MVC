@@ -337,8 +337,8 @@ namespace CapaTienda.Controllers
                     landing_page = "NO_PREFERENCE",
                     user_action = "PAY_NOW",
                     //confiruado segun la url local o nube
-                    return_url = "https://localhost:44323/Tienda/PagoEfectuado",
-                    cancel_url = "https://localhost:44323/Tienda/Carrito"
+                    return_url = "https://tiendapanchito.azurewebsites.net/Tienda/PagoEfectuado",
+                    cancel_url = "https://tiendapanchito.azurewebsites.net/Tienda/Carrito"
 
                 }
 

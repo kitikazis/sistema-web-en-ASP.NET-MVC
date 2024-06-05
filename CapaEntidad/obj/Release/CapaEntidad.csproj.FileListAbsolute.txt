@@ -1,0 +1,6 @@
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaEntidad\bin\Release\CapaEntidad.dll
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaEntidad\bin\Release\CapaEntidad.pdb
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaEntidad\obj\Release\CapaEntidad.csproj.AssemblyReference.cache
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaEntidad\obj\Release\CapaEntidad.csproj.CoreCompileInputs.cache
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaEntidad\obj\Release\CapaEntidad.dll
+C:\Users\luisk\OneDrive\Escritorio\Pancho_Carritos\sistema-web-en-ASP.NET-MVC\CapaEntidad\obj\Release\CapaEntidad.pdb

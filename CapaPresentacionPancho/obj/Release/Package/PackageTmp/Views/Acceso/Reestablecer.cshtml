@@ -1,0 +1,72 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Reestablecer</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body  class="bg-Secondary p-2 text-dark">
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header"><h3 class="text-center font-weight-light my-4">Recuperacion de contraseña</h3></div>
+                                <div class="card-body">
+                                    <label class="form-label" for="form2Example1">Ingrese su Correo</label>
+
+                                    <form action="@Url.Action("Reestablecer","Acceso")" method="post">
+                                        <!-- Email input -->
+                                        <div data-mdb-input-init class="form-outline mb-4">
+                                            <input class="form-control" name="correo" type="email" id="form2Example1" autocomplete="off" />
+                                            <div class="small mb-3 text-muted">Ingrese su dirección de correo electrónico y le enviaremos su nueva contraseña</div>
+
+                                        </div>
+
+                                        <!-- Submit button -->
+                                        <button type="submit" class="btn btn-primary btn-block mb-4">Restablecer la contraseña</button>
+
+                                        <!-- Register buttons -->
+                                        <div class="text-center">
+                                            <p> ¿Tienes cuenta? <a href="@Url.Action("Index","Acceso")"> Iniciar Session</a></p>
+                                        
+                                            
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div id="layoutAuthentication_footer">
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Your Website 2021</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

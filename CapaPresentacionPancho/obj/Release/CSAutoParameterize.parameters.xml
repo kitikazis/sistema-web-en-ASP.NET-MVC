@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="cadena-Web.config Connection String" description="cadena Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultValue="Data Source=34.176.228.231;Initial Catalog=DBCARRITO_Google_Yamir;User ID=sqlserver;Password=@fabian12@;Encrypt=True;TrustServerCertificate=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\luisk\\OneDrive\\Escritorio\\Pancho_Carritos\\sistema-web-en-ASP\.NET-MVC\\CapaPresentacionPancho\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='cadena']/@connectionString" />
+  </parameter>
+</parameters>
