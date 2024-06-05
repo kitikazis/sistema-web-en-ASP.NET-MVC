@@ -6,23 +6,36 @@ using System.Web.Mvc;
 using CapaEntidad;
 using CapaNegocio;
 using ClosedXML.Excel;
+using CapaDatos;
 
 namespace CapaPresentacionPancho.Controllers
 {
     // para activar al authorize -> web config  linea  <authentication 
-  [Authorize]
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
             return View();
         }
-
+        public ActionResult Grafica()
+        {
+            return View();
+        }
 
         public ActionResult Usuarios()
         {
             return View();
         }
+
+
+
+
+
+
+
+
+
 
         [HttpGet]
         public JsonResult ListarUsuarios()
@@ -149,6 +162,29 @@ namespace CapaPresentacionPancho.Controllers
 
         }
 
+
+
+        [HttpGet]
+        public JsonResult ReporteVentas()
+        {
+            DT_Reporte objDT_Reporte = new DT_Reporte();
+
+            List<ReporteVenta> objLista = objDT_Reporte.RetornarVentas();
+
+            return Json(objLista, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        [HttpGet]
+        public JsonResult ReporteProductos()
+        {
+            DT_Reporte objDT_Reporte = new DT_Reporte();
+
+            List<ReporteProducto> objLista = objDT_Reporte.RetornarProductos();
+
+            return Json(objLista, JsonRequestBehavior.AllowGet);
+        }
 
 
     }

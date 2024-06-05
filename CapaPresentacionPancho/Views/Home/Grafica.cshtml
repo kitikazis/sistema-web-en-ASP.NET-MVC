@@ -1,0 +1,237 @@
+﻿
+@{
+    ViewBag.Title = "Grafica";
+
+}
+<div class="row" style="margin-top:20px">
+    <div class="col-lg-6">
+
+        <div class="panel panel-default">
+            <div class="panel-heading"><b>Reporte Ventas: 3 Ultimos meses</b> </div>
+            <div class="panel-body">
+                <canvas id="myBarChart" width="100" height="50"></canvas>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-6">
+
+        <div class="panel panel-default">
+            <div class="panel-heading"><b>Reporte Vendidos Productos: 3 Ultimos meses</b> </div>
+            <div class="panel-body">
+                <canvas id="myPieChart" width="100" height="50"></canvas>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+@section scripts{
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
+    <script>
+
+        // Bar Chart Example
+        //var controlBar = document.getElementById("myBarChart");
+
+        //var graficoBar = new Chart(controlBar, {
+        //    type: 'bar',
+        //    data: {
+        //        labels: ["January", "February", "March", "April", "May", "June"],
+        //        datasets: [{
+        //            label: "Revenue",
+        //            backgroundColor: "#BB2100",
+        //            borderColor: "rgba(2,117,216,1)",
+        //            data: [4215, 5312, 6251, 7841, 9821, 14984],
+
+        //            backgroundColor: ["#BB2100", "#03B100", "#0083B1", "#0800B1", "#EBFA00", "#FA00D8"],
+        //            borderColor: "#000000",
+        //            borderWidth: 0,
+        //            data: [4215, 5312, 6251, 7841, 9821, 14984],
+        //        }],
+        //    },
+        //    options: {
+        //        scales: {
+        //            xAxes: [{
+        //                time: {
+        //                    unit: 'month'
+        //                },
+        //                gridLines: {
+        //                    display: true
+        //                },
+        //                ticks: {
+        //                    maxTicksLimit: 6 //=> cuantos puntos X aparareceran
+        //                }
+        //            }],
+        //            yAxes: [{
+        //                ticks: {
+        //                    min: 0,
+        //                    max: 15000,
+        //                    maxTicksLimit: 4 //=> cuantos puntos Y aparareceran
+        //                },
+        //                gridLines: {
+        //                    display: true
+        //                }
+        //            }],
+        //        },
+        //        legend: {
+        //            display: false // => activalo si deseas ver leyenda
+        //        }
+        //    }
+        //});
+
+
+        // Pie Chart Example
+        //var controlPie = document.getElementById("myPieChart");
+        //var graficoPie = new Chart(controlPie, {
+        //    type: 'pie',
+        //    data: {
+        //        labels: ["Blue", "Red", "Yellow", "Green"],
+        //        datasets: [{
+        //            data: [12.21, 15.58, 11.25, 8.32],
+        //            backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
+        //        }],
+        //    },
+        //});
+
+
+
+        //copia y pega el json no lo construyas - ahorra tiempo
+
+        //jQuery.ajax({
+        //        url: '',
+        //        type: "GET",
+        //        dataType: "json",
+        //        contentType: "application/json; charset=utf-8",
+        //        success: function (data) {
+
+        //        },
+        //        error: function (error) {
+        //            console.log(error)
+        //        }
+        //    });
+
+
+        jQuery.ajax({
+                url: '@Url.Action("ReporteVentas", "Home")',
+                type: "GET",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    /*console.log(data);*/
+
+                    var arrayMeses = [];
+                    var arrayCantidad = [];
+
+                    for (var i = 0; i < data.length; i++) {
+
+                        /*console.log(data[i].mes)*/
+                        arrayMeses.push(data[i].mes)
+                        arrayCantidad.push(data[i].cantidad)
+                    }
+
+                    console.log(arrayMeses)
+                    console.log(arrayCantidad)
+
+                    var controlBar1 = document.getElementById("myBarChart");
+
+                    var graficoBar1 = new Chart(controlBar1, {
+                        type: 'bar',
+                        data: {
+                            labels: arrayMeses,
+                            datasets: [{
+                                label: "Total Ventas",
+                                /*backgroundColor: "#0800B1",*/
+                                backgroundColor: ["#03B100", "#0083B1", "#0800B1"],
+                                borderColor: "#000000",
+                                borderWidth: 0,
+                                data: arrayCantidad,
+                            }],
+                        },
+                        options: {
+                            scales: {
+                                xAxes: [{
+                                    gridLines: {
+                                        display: true
+                                    },
+                                }],
+                                yAxes: [{
+                                    ticks: {
+                                        min: 0,
+                                    },
+                                    gridLines: {
+                                        display: true
+                                    }
+                                }],
+                            },
+                            legend: {
+                                display: true
+                            }
+                        }
+                    });
+
+
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+        });
+
+
+
+        jQuery.ajax({
+            url: '@Url.Action("ReporteProductos", "Home")',
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function(data) {
+                var arrayProductos = [];
+                var arrayCantidad = [];
+
+                for (var i = 0; i < data.length; i++) {
+                    arrayProductos.push(data[i].producto);
+                    arrayCantidad.push(data[i].cantidad);
+                }
+
+                var totalCantidad = arrayCantidad.reduce((a, b) => a + b, 0); // Calcula el total de cantidad
+
+                // Calcula los porcentajes
+                var arrayPorcentajes = arrayCantidad.map(cantidad => ((cantidad / totalCantidad) * 100).toFixed(2));
+
+                // Genera los colores dinámicamente con el porcentaje
+                var backgroundColors = arrayPorcentajes.map((porcentaje, index) => {
+                    var hue = (index * 137.508) % 360; // Elige un matiz diferente para cada categoría
+                    return `hsl(${hue}, 70%, 50%)`; // Convierte el matiz a un color HSL
+                });
+
+                var controlPie1 = document.getElementById("myPieChart").getContext('2d');
+                var graficoPie1 = new Chart(controlPie1, {
+                    type: 'pie',
+                    data: {
+                        labels: arrayProductos.map((producto, index) => `${producto}: ${arrayPorcentajes[index]}%`),
+                        datasets: [{
+                            data: arrayCantidad,
+                            backgroundColor: backgroundColors,
+                        }],
+                    },
+                    options: {
+                        legend: {
+                            labels: {
+                                fontSize: 18, // Tamaño de fuente de las etiquetas del legendario
+                            }
+                        }
+                    }
+                });
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    </script>
+}

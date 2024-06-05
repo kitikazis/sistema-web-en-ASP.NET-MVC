@@ -52,6 +52,7 @@
     <Compile Include="CD_Usuarios.cs" />
     <Compile Include="CD_Venta.cs" />
     <Compile Include="Conexion.cs" />
+    <Compile Include="DT_Reporte.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
