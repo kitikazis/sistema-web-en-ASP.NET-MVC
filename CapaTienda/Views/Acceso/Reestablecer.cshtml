@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -8,69 +7,41 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Reestablecer</title>
-    <link href="~/Content/causa.css" rel="stylesheet" />
+    <title>Login</title>
+
+    <link href="~/Estilos/css/login.css" rel="stylesheet" />
+    <!-- Add any additional CSS or stylesheet links here -->
 </head>
-<body class="bg-primary">
-    <div id="layoutAuthentication">
-        <div id="layoutAuthentication_content">
-            <main>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-5">
-                            <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                <div class="card-header"><h3 class="text-center font-weight-light my-4">Recuperación de contraseña</h3></div>
-                                <div class="card-body">
-                                    <div class="small mb-3 text-muted">Ingrese su dirección de correo electrónico y le enviaremos su nueva contraseña</div>
-                                    <form action="@Url.Action("Reestablecer","Acceso")" method="post">
-                                        <div class="form-floating mb-3">
-                                            <input class="form-control" name="correo" type="email" placeholder="name@example.com" />
-                                            <label for="inputEmail">Email</label>
-                                        </div>
+<body class="login-page">
+    <main>
+        <div class="login-block">
+            <img src="http://scanfcode.com/wp-content/uploads/2017/09/cropped-Untitled-1.png" alt="Scode">
+            <h1>Recuperacion de cuenta</h1>
+            <form action="#" method="post">
 
-
-                                        @{
-                                            if (ViewBag.Error != null)
-                                            {
-                                                <div class="form-floating mb-3">
-                                                    <div class="alert alert-danger" role="alert">
-                                                        @ViewBag.Error
-                                                    </div>
-                                                </div>
-                                            }
-                                        }
-
-
-                                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <a class="small" href="@Url.Action("Index","Acceso")">Regresar al Login</a>
-                                            <button class="btn btn-primary" type="submit">Reestablecer la contraseña</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="card-footer text-center py-3">
-
-                                </div>
-                            </div>
-                        </div>
+                <hr class="hr-xs">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                            </svg>
+                        </span>
+                        <input type="text" class="form-control" name="correo" placeholder="Ingresa tu correo">
                     </div>
                 </div>
-            </main>
-        </div>
-        <div id="layoutAuthentication_footer">
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2021</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
-                    </div>
+                <hr class="hr-xs">
+
+                <button class="btn btn-primary btn-block btn-green" type="submit">Recuperar</button>
+
+                <div class="login-footer">
+
+
+
                 </div>
-            </footer>
+            </form>
         </div>
-    </div>
-    <script src="~/Scripts/bootstrap.bundle.js"></script>
+
+    </main>
 </body>
 </html>

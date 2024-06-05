@@ -162,6 +162,7 @@
     <Content Include="Content\v4-shims.css" />
     <Content Include="Content\v4-shims.min.css" />
     <Content Include="Estilos\css\login_tienda.css" />
+    <Content Include="Estilos\css\login.css" />
     <Content Include="Estilos\css\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
